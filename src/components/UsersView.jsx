@@ -1,9 +1,9 @@
 import React from 'react';
 import InputAction from './InputAction';
 
-const User = ({userName, onDeleteUser, onSwitchUser, isActive}) => (
+const User = ({userName, onSwitchUser, isActive}) => (
 	<div>
-		<p><span onClick={onSwitchUser} style={{fontWeight: isActive ? 'bold' : 'normal', marginRight: 20}}>{userName}</span><button onClick={onDeleteUser}>Delete</button></p>
+		<p><span onClick={onSwitchUser} style={{fontWeight: isActive ? 'bold' : 'normal', marginRight: 20}}>{userName}</span></p>
 	</div>
 )
 

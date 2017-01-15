@@ -37,7 +37,7 @@ class PlaylistsView extends React.Component {
 	}
 
 	render() {
-		let {playlists, activeUser, activePlaylist, onDeletePlaylist, onSwitchPlaylist} = this.props;
+		let {playlists, activeUser, activePlaylist, currentSong, searchedSongs, onDeletePlaylist, onSwitchPlaylist} = this.props;
 		return (
 			activeUser ?
 			<div style={{margin: 20}}>
@@ -53,7 +53,7 @@ class PlaylistsView extends React.Component {
 						key={playlist.id}
 						playlist={playlist}
 						onSwitchPlaylist={() => onSwitchPlaylist(activeUser, playlist.id)}
-						onDeletePlaylist={() => onDeletePlaylist(activeUser, playlist.id, playlist.songs)}
+						onDeletePlaylist={() => onDeletePlaylist(activeUser, playlist.id, playlist.songs, currentSong, searchedSongs)}
 						isActive={isEqual(activePlaylist, {user: activeUser, playlist: playlist.id})}/>)}
 			</div> : null
 		);
