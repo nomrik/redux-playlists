@@ -1,27 +1,33 @@
 // Actions
 const SET_CURRENT_SONG = 'redux-playlists/player/SET_CURRENT_SONG';
+const SET_PLAY_STATUS = 'redux-playlists/player/SET_PLAY_STATUS';
 const ADD_TO_QUEUE = 'redux-playlists/player/ADD_TO_QUEUE';
 const REMOVE_FROM_QUEUE = 'redux-playlists/player/REMOVE_FROM_QUEUE';
 const EMPTY_QUEUE = 'redux-playlists/player/EMPTY_QUEUE';
 const PROGRESS_QUEUE = 'redux-playlists/player/PROGRESS_QUEUE';
 
 // Reducer
-export default function reducer(state = {currentSong: '', queue: []}, action = {}) {
+export default function reducer(state = {currentSong: '', queue: [], playStatus: ''}, action = {}) {
 	switch (action.type) {
 		case SET_CURRENT_SONG:
 			return {
 				...state,
-				currentSong: action.songUrl
+				currentSong: action.songId
 			};
+			case SET_PLAY_STATUS:
+				return {
+					...state,
+					playStatus: action.playStatus
+				};
 		case ADD_TO_QUEUE:
 			return {
 				...state,
-				queue: [...state.queue, action.songUrl]
+				queue: [...state.queue, action.songId]
 			};
 		case REMOVE_FROM_QUEUE:
 			return {
 				...state,
-				queue: state.queue.filter(songUrl => songUrl !== action.songUrl)
+				queue: state.queue.filter(songId => songId !== action.songId)
 			};
 		case EMPTY_QUEUE:
 			return {
@@ -35,24 +41,29 @@ export default function reducer(state = {currentSong: '', queue: []}, action = {
 				queue: newQueue
 			};
 		default:
+			return state;
 	}
 }
 
 // Action Creators
-export function setCurrentSong(songUrl) {
-	return {type: SET_CURRENT_SONG, songUrl}
+export function setCurrentSong(songId) {
+	return {type: SET_CURRENT_SONG, songId}
 }
 
-export function addToQueue(songUrl) {
-	return {type: ADD_TO_QUEUE, songUrl}
+export function setPlayStatus(playStatus) {
+	return {type: SET_PLAY_STATUS, playStatus}
 }
 
-export function removeFromQueue(songUrl) {
-	return {type: REMOVE_FROM_QUEUE, songUrl}
+export function addToQueue(songId) {
+	return {type: ADD_TO_QUEUE, songId}
 }
 
-export function emptyQueue(songUrl) {
-	return {type: EMPTY_QUEUE, songUrl}
+export function removeFromQueue(songId) {
+	return {type: REMOVE_FROM_QUEUE, songId}
+}
+
+export function emptyQueue(songId) {
+	return {type: EMPTY_QUEUE, songId}
 }
 
 export function progressQueue() {

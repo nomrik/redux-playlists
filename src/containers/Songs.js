@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
 import {getSongsListOfActivePlaylist, getActivePlaylist} from '../selectors';
 import {removeSongFromPlaylist} from '../redux/modules/playlists';
+import {setPlayStatus, emptyQueue, addToQueue, progressQueue, removeFromQueue} from '../redux/modules/player';
 import SongsView from '../components/SongsView';
 
 function mapStateToProps(state) {
@@ -12,7 +13,20 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		onRemoveSong: (playlistId, songId) => dispatch(removeSongFromPlaylist(playlistId, songId))
+		onRemoveSong: (playlistId, songId, isCurrent) => {
+			dispatch(removeSongFromPlaylist(playlistId, songId));
+			dispatch(removeFromQueue(songId));
+			if (isCurrent) {
+				dispatch(setPlayStatus('pause'));
+			}
+		},
+		onPlay: songs => {
+			dispatch(emptyQueue());
+			songs.forEach(song => dispatch(addToQueue(song.id)));
+			dispatch(progressQueue());
+			dispatch(setPlayStatus('play'));
+		},
+		onPause: () => dispatch(setPlayStatus('pause')),
 	};
 }
 

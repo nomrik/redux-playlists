@@ -3,13 +3,13 @@ import isEmpty from 'lodash/isEmpty';
 import Song from './Song';
 import InputAction from './InputAction';
 
-const SongSearchResult = ({song, onAdd, isActivePlaylist, playStatus, onPlay, onPause, loadedSong}) => (
+const SongSearchResult = ({song, onAdd, isActivePlaylist, playStatus, onPlay, onPause, currentSong}) => (
 	<Song
 		song={song}
 		playStatus={playStatus}
 		onPlay={onPlay}
 		onPause={onPause}
-		loadedSong={loadedSong}>
+		currentSong={currentSong}>
 		{isActivePlaylist && <span><button onClick={onAdd}>Add To Playlist</button></span>}
 	</Song>
 );
@@ -43,7 +43,7 @@ class SongSearchView extends React.Component {
 	}
 
 	render() {
-		let {songs, activeUser, activePlaylist, onAddSongToPlaylist, onPlay, playStatus, onPause, loadedSong} = this.props;
+		let {songs, activeUser, activePlaylist, onAddSongToPlaylist, onPlay, playStatus, onPause, currentSong} = this.props;
 		return (
 			activeUser ?
 			<div style={{margin: 20}}>
@@ -61,7 +61,7 @@ class SongSearchView extends React.Component {
 						onPause={onPause}
 						song={song}
 						onAdd={() => activePlaylist.songs.includes(song.id) ? null : onAddSongToPlaylist(activePlaylist.id, song)}
-						loadedSong={loadedSong}
+						currentSong={currentSong}
 						playStatus={playStatus}
 						isActivePlaylist={!isEmpty(activePlaylist)}/>)}
 			</div> : null

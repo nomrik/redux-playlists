@@ -9,6 +9,10 @@ const getActiveUser = state => state.activeUser;
 const getActivePlaylistId = state => state.activePlaylist.playlist;
 const getSearchedSongs = state => state.searchedSongs;
 const getSavedSongs = state => state.savedSongs;
+export const getCurrentSong = state => state.player.currentSong;
+export const getNextSong = state => state.player.queue.length > 0 ? state.player.queue[0] : null;
+export const getPlayStatus = state => state.player.playStatus;
+
 
 export const getUsersList = createSelector(
 	[getUsers],
@@ -33,4 +37,18 @@ export const getSearchedSongsList = createSelector(
 export const getSongsListOfActivePlaylist = createSelector(
 	[getPlaylists, getActivePlaylist, getSavedSongs],
 	(playlists, activePlaylist, savedSongs) => map(activePlaylist.songs, songId => savedSongs[songId])
+);
+
+export const getCurrentSongUrl = createSelector(
+	[getCurrentSong, getSavedSongs, getSearchedSongs],
+	(currentSong, savedSongs, searchedSongs) => {
+		let combinedSongs = Object.assign({}, savedSongs, searchedSongs);
+		console.log(combinedSongs.hasOwnProperty(currentSong) ? combinedSongs[currentSong].previewUrl : '');
+		return combinedSongs.hasOwnProperty(currentSong) ? combinedSongs[currentSong].previewUrl : '';
+	}
+);
+
+export const getNextSongUrl = createSelector(
+	[getNextSong, getSavedSongs],
+	(nextSong, savedSongs) => savedSongs.hasOwnProperty(nextSong) ? savedSongs[nextSong].previewUrl : ''
 );

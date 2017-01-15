@@ -5,67 +5,51 @@ import SongSearch from '../containers/SongSearch';
 import Songs from '../containers/Songs';
 
 class AppView extends React.Component {
+
 	constructor(props) {
-		super(props);
-		this.onPlay = this.onPlay.bind(this)
-	}
-	state = {
-		loadedSong: '',
-		playStatus: 'ended'
+		super(props)
+		this.playNext = this.playNext.bind(this);
 	}
 
 	componentDidMount() {
 		this.audio = new Audio();
-		this.audio.addEventListener('ended', () => this.setState({playStatus: 'ended'}));
-		this.audio.addEventListener('play', () => this.setState({playStatus: 'play'}));
-		this.audio.addEventListener('pause', () => this.setState({playStatus: 'pause'}));
+		this.audio.addEventListener('ended', this.playNext);
+		this.audio.addEventListener('play', () => {});
+		this.audio.addEventListener('pause', () => {});
 	}
 
-	onPlay(song) {
-		if (song.id !== this.state.loadedSong) {
-			this.setState({loadedSong: song.id});
-			this.audio.src = song.previewUrl;
-			this.audio.load();
-		}
-		this.audio.play();
-	}
-
-	playNext(songs) {
-		let songsCount = 1;
-		let onPlay = this.onPlay;
-		return function() {
-			if (songsCount < songs.length) {
-				onPlay(songs[songsCount]);
-				songsCount++;
-			}
+	playNext() {
+		let {playNextSong, endPlaying} = this.props;
+		switch (this.props.nextSong) {
+			case null:
+				endPlaying();
+				break;
+			default:
+				playNextSong();
 		}
 	}
 
-	onPlayAll(songs) {
-		this.audio.addEventListener('ended', this.playNext(songs));
-		this.onPlay(songs[0]);
-	}
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.currentSong !== this.props.currentSong) {
+			this.audio.src = nextProps.currentSongUrl;
+		}
 
-	onPause() {
-		this.audio.pause();
+		if (nextProps.playStatus === 'play') {
+			this.audio.play();
+		} else if (nextProps.playStatus === 'pause') {
+			this.audio.pause();
+		}
+
 	}
 
 	render() {
-		let {loadedSong, playStatus, song: currentSong} = this.state;
-		const playerProps = {
-			loadedSong,
-			playStatus,
-			currentSong,
-			onPause: () => this.onPause(),
-			onPlay: song => this.onPlay(song),
-			onPlayAll: songs => this.onPlayAll(songs)
-		};
+		let {currentSong, playStatus} = this.props;
 		return (
 			<div style={{display: 'flex'}}>
 				<Users />
 				<Playlists />
-				<Songs {...playerProps}/>
-				<SongSearch {...playerProps}/>
+				<Songs currentSong={currentSong} playStatus={playStatus}/>
+				<SongSearch currentSong={currentSong} playStatus={playStatus}/>
 			</div>
 		);
 	}
