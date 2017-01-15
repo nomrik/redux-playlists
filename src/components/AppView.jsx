@@ -14,8 +14,6 @@ class AppView extends React.Component {
 	componentDidMount() {
 		this.audio = new Audio();
 		this.audio.addEventListener('ended', this.playNext);
-		this.audio.addEventListener('play', () => {});
-		this.audio.addEventListener('pause', () => {});
 	}
 
 	playNext() {
