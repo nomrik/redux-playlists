@@ -46,8 +46,6 @@ class UsersView extends React.Component {
 					onChange={(e) => this.setState({newUserName: e.target.value})}
 					onAction={() => this.addUser()}
 					actionText='Add' />
-				{/* <input value={this.state.newUserName} type='text' onKeyDown={e => this.handleKeyDown(e)} onChange={(e) => this.setState({newUserName: e.target.value})} />
-				<span><button onClick={() => this.addUser()}>Add</button></span> */}
 				{users.map(user => <User key={user} userName={user} onDeleteUser={() => onDeleteUser(user)} onSwitchUser={() => onSwitchUser(user)} isActive={activeUser === user}/>)}
 			</div>
 		);

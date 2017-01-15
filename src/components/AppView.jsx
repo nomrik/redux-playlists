@@ -3,6 +3,7 @@ import Users from '../containers/Users';
 import Playlists from '../containers/Playlists';
 import SongSearch from '../containers/SongSearch';
 import Songs from '../containers/Songs';
+import SignUp from '../containers/SignUp';
 
 class AppView extends React.Component {
 
@@ -41,14 +42,14 @@ class AppView extends React.Component {
 	}
 
 	render() {
-		let {currentSong, playStatus} = this.props;
-		return (
+		let {currentSong, playStatus, usersCount} = this.props;
+		return ( usersCount > 0 ?
 			<div style={{display: 'flex'}}>
 				<Users />
 				<Playlists />
 				<Songs currentSong={currentSong} playStatus={playStatus}/>
 				<SongSearch currentSong={currentSong} playStatus={playStatus}/>
-			</div>
+			</div> : <SignUp />
 		);
 	}
 }
