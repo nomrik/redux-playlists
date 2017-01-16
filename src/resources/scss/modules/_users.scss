@@ -10,7 +10,7 @@
 	padding: 12px 15px;
 	border: 1px solid white;
 	border-radius: 30px;
-	width: 12px;
+	width: 15px;
 	text-align: center;
 }
 .users-view--active-user:hover {
@@ -26,6 +26,7 @@
 	border-radius: 5px;
 	border-color: $light-gray;
 	padding: 10px;
+	padding-top: 0;
 }
 
 .users-view--users-list {
@@ -53,7 +54,20 @@
 	color: $background-gray;
 }
 
+.users-view .input-action-button {
+	height: 20px;
+	font-size: 30px;
+}
+
 .users-view .input-action-button:hover {
 	background-color: $light-gray;
 	color: white;
+}
+
+.users-view--logged-in-as, .users-view--switch-user-text, .users-view--add-user-text {
+	color: $light-gray;
+}
+
+.users-view--active-user-text {
+	text-align: center;
 }

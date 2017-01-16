@@ -1,10 +1,12 @@
 import React from 'react';
 import InputAction from './InputAction';
 import isEqual from 'lodash/isEqual';
+import FontAwesome from 'react-fontawesome';
 
 const Playlist = ({playlist, onSwitchPlaylist, onDeletePlaylist, isActive}) => (
-	<div>
-		<p><span onClick={onSwitchPlaylist} style={{fontWeight: isActive ? 'bold' : 'normal', marginRight: 20}}>{`${playlist.name} - ${playlist.songs.length}`}</span><button onClick={onDeletePlaylist}>Delete</button></p>
+	<div style={{marginTop: 20}}>
+		<span onClick={onSwitchPlaylist} style={{cursor: 'pointer', fontWeight: isActive ? 'bold' : 'normal', marginRight: 20}}>{playlist.name}</span>
+		<FontAwesome name='close' onClick={onDeletePlaylist} />
 	</div>
 );
 
@@ -41,7 +43,7 @@ class PlaylistsView extends React.Component {
 		return (
 			activeUser ?
 			<div style={{margin: 20}}>
-				<h2>Playlists for {activeUser}</h2>
+				<h2>Playlists</h2>
 				<InputAction
 					value={this.state.newPlaylistName}
 					onKeyDown={e => this.handleKeyDown(e)}

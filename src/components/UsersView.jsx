@@ -9,6 +9,7 @@ const ActiveUser = ({user, onClick}) => (
 
 const OtherUsers = ({users, onSwitchUser}) => (
 	<div className='users-view--users-list'>
+		<p className='users-view--switch-user-text'>Switch user</p>
 		{users.map(user => <div onClick={() => onSwitchUser(user)} className='users-view--other-user'>{user}</div>)}
 	</div>
 );
@@ -60,7 +61,10 @@ class UsersView extends React.Component {
 				<ActiveUser user={activeUser.charAt(0).toUpperCase()} onClick={() => this.setState({showUserList: !showUserList})}/>
 				{showUserList &&
 					<div className='users-view--users-list-wrapper'>
+						<p className='users-view--logged-in-as'>Logged in as</p>
+						<p className='users-view--active-user-text'>{activeUser}</p>
 						{otherUsers.length > 0 && <OtherUsers users={otherUsers} onSwitchUser={onSwitchUser} />}
+						<p className='users-view--add-user-text'>Add user</p>
 						<AddUser
 							value={newUserName}
 							onChange={newUserName => this.setState({newUserName})}

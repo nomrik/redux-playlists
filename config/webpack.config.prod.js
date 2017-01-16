@@ -118,7 +118,8 @@ module.exports = {
           /\.css$/,
 					/\.scss$/,
           /\.json$/,
-          /\.svg$/
+          /\.svg$/,
+					/\.(ttf|eot|otf|woff|woff2)(\?.*)?$/
         ],
         loader: 'url',
         query: {
@@ -160,6 +161,8 @@ module.exports = {
   			test: /\.scss$/,
   			loader: ExtractTextPlugin.extract('style', 'css!sass?importLoaders=1!postcss')
 			},
+			{test: /\.(woff|woff2)(\?.*)?$/, loader: 'url-loader?limit=16384&mimetype=application/font-woff'},
+			{test: /\.(ttf|eot|otf)(\?.*)?$/, loader: 'file-loader'},
       // "file" loader for svg
       {
         test: /\.svg$/,

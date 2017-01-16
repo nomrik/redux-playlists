@@ -2,6 +2,7 @@ import React from 'react';
 import isEmpty from 'lodash/isEmpty';
 import Song from './Song';
 import InputAction from './InputAction';
+import FontAwesome from 'react-fontawesome';
 
 const SongSearchResult = ({song, onAdd, isActivePlaylist, playStatus, onPlay, onPause, currentSong}) => (
 	<Song
@@ -10,7 +11,7 @@ const SongSearchResult = ({song, onAdd, isActivePlaylist, playStatus, onPlay, on
 		onPlay={onPlay}
 		onPause={onPause}
 		currentSong={currentSong}>
-		{isActivePlaylist && <span><button onClick={onAdd}>Add To Playlist</button></span>}
+		{isActivePlaylist && <FontAwesome name='plus' onClick={onAdd} />}
 	</Song>
 );
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import Song from './Song';
+import FontAwesome from 'react-fontawesome';
 
 const PlaylistSong = ({song, playStatus, onPlay, onPause, currentSong, onRemoveSong}) => (
 	<Song
@@ -8,14 +9,14 @@ const PlaylistSong = ({song, playStatus, onPlay, onPause, currentSong, onRemoveS
 		onPlay={onPlay}
 		onPause={onPause}
 		currentSong={currentSong}>
-		<button onClick={onRemoveSong}>Remove</button>
+		<FontAwesome name='close' onClick={onRemoveSong} />
 	</Song>
 );
 
 const SongsView = ({playlist, songs, playStatus, onPlay, onPlayAll, onPause, currentSong, onRemoveSong}) => (
 	playlist.id ?
 	<div style={{margin: 20}}>
-		<span><h2>Songs for {playlist.name}</h2><button onClick={() => onPlay(songs)}>Play All</button></span>
+		<h2>{playlist.name}</h2>
 		{songs.map(song =>
 			<PlaylistSong
 				key={song.id}

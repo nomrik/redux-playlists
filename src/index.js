@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom';
 import App from './containers/App';
 import { Provider } from 'react-redux';
 import configureStore from './redux/configureStore';
-import './scss/index.scss';
+
+import './resources/fonts/open-sans.scss';
+
+import './resources/scss/index.scss';
 
 const store = configureStore();
 
