@@ -18,11 +18,11 @@ export default class SignUpView extends React.Component {
 
 	render() {
 		return (
-			<div className='sign-up-wrapper'>
-				<div className='sign-up'>
-					<h1 className='sign-up-text'>Enter Username</h1>
-					<input className='sign-up-input' onKeyDown={e => this.handleKeyDown(e)} value={this.state.newUserName} onChange={e => this.setState({newUserName: e.target.value})} />
-					<button className='sign-up-button' onClick={() => this.props.onCreateUser(this.state.newUserName)}>Sign Up</button>
+			<div className='sign-up-view'>
+				<div className='sign-up-view--wrapper'>
+					<h1 className='sign-up-view--heading'>Enter Username</h1>
+					<input className='sign-up-view--input' onKeyDown={e => this.handleKeyDown(e)} value={this.state.newUserName} onChange={e => this.setState({newUserName: e.target.value})} />
+					<button className='sign-up-view--button' onClick={() => this.props.onCreateUser(this.state.newUserName)}>Sign Up</button>
 				</div>
 			</div>
 		);

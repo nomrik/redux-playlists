@@ -1,0 +1,60 @@
+.users-view {
+	margin: 20px 20px 0 auto;
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+}
+
+
+.users-view--active-user {
+	padding: 12px 15px;
+	border: 1px solid white;
+	border-radius: 30px;
+	width: 12px;
+	text-align: center;
+	align-self: flex-start;
+}
+.users-view--active-user:hover {
+	background-color: white;
+	cursor: pointer;
+	color: rgb(82, 82, 82);
+}
+
+.users-view--users-list-wrapper {
+	margin-right: 15px;
+	background-color: white;
+	color: rgb(82, 82, 82);
+	border-radius: 5px;
+	border-color: rgb(220,220,220);
+	padding: 10px;
+}
+
+.users-view--users-list {
+	margin-bottom: 20px;
+}
+
+.users-view--other-user {
+	text-align: center;
+	border-bottom: 1px solid rgb(220,220,220);
+	padding: 7px 0;
+}
+
+.users-view--other-user:hover {
+	background-color: rgb(220,220,220);
+	color: white;
+	cursor: pointer
+}
+
+.users-view .input-action-wrapper {
+	border-color: rgb(220,220,220);
+}
+
+.users-view .input-action-control {
+	border-right-color: rgb(220,220,220);
+	color: rgb(82,82,82);
+}
+
+.users-view .input-action-button:hover {
+	background-color: rgb(220,220,220);
+	color: white;
+}

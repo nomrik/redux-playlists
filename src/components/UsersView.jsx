@@ -1,15 +1,32 @@
 import React from 'react';
 import InputAction from './InputAction';
+import '../css/users.css';
 
-const User = ({userName, onSwitchUser, isActive}) => (
-	<div>
-		<p><span onClick={onSwitchUser} style={{fontWeight: isActive ? 'bold' : 'normal', marginRight: 20}}>{userName}</span></p>
+const ActiveUser = ({user, onClick}) => (
+	<div onClick={onClick} className='users-view--active-user'>
+		{user}
 	</div>
-)
+);
+
+const OtherUsers = ({users, onSwitchUser}) => (
+	<div className='users-view--users-list'>
+		{users.map(user => <div onClick={() => onSwitchUser(user)} className='users-view--other-user'>{user}</div>)}
+	</div>
+);
+
+const AddUser = ({value, onChange, onAddUser, onKeyDown}) => (
+	<InputAction
+		value={value}
+		onKeyDown={onKeyDown}
+		onChange={(e) => onChange(e.target.value)}
+		onAction={onAddUser}
+		actionText='+' />
+);
 
 class UsersView extends React.Component {
 	state = {
-		newUserName: ''
+		newUserName: '',
+		showUserList: false
 	}
 
 	addUser() {
@@ -36,17 +53,21 @@ class UsersView extends React.Component {
 	}
 
 	render() {
-		let {users, activeUser, onDeleteUser, onSwitchUser} = this.props;
+		let {users, activeUser, onSwitchUser} = this.props;
+		let {newUserName, showUserList} = this.state;
+		let otherUsers = users.filter(user => user !== activeUser);
 		return (
-			<div className="users">
-				<h2>Users</h2>
-				<InputAction
-					value={this.state.newUserName}
-					onKeyDown={e => this.handleKeyDown(e)}
-					onChange={(e) => this.setState({newUserName: e.target.value})}
-					onAction={() => this.addUser()}
-					actionText='Add' />
-				{users.map(user => <User key={user} userName={user} onDeleteUser={() => onDeleteUser(user)} onSwitchUser={() => onSwitchUser(user)} isActive={activeUser === user}/>)}
+			<div className='users-view'>
+				<ActiveUser user={activeUser.charAt(0).toUpperCase()} onClick={() => this.setState({showUserList: !showUserList})}/>
+				{showUserList &&
+					<div className='users-view--users-list-wrapper'>
+						{otherUsers.length > 0 && <OtherUsers users={otherUsers} onSwitchUser={onSwitchUser} />}
+						<AddUser
+							value={newUserName}
+							onChange={newUserName => this.setState({newUserName})}
+							onKeyDown={e => this.handleKeyDown(e)}
+							onAddUser={() => this.addUser()} />
+					</div>}
 			</div>
 		);
 	}
