@@ -1,5 +1,4 @@
 import React from 'react';
-import '../css/InputAction.css';
 
 const InputAction = ({onChange, value, onKeyDown, actionText, onAction}) => (
 	<div className='input-action-wrapper'>

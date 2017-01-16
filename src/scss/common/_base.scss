@@ -9,14 +9,9 @@ body {
 	font-family: Verdana;
   font-weight: lighter;
 	color: white;
-	background-color: rgb(82, 82, 82);
+	background-color: $background-gray;
 }
 
 #root {
 	height: 100%;
-}
-
-.users {
-	margin: 20px;
-	/*border: 2px solid rgb(198, 198, 198);*/
 }

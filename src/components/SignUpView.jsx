@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/signUp.css';
+import '../scss/modules/signUp.scss';
 
 export default class SignUpView extends React.Component {
 	state = {

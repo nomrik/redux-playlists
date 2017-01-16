@@ -1,6 +1,5 @@
 import React from 'react';
 import InputAction from './InputAction';
-import '../css/users.css';
 
 const ActiveUser = ({user, onClick}) => (
 	<div onClick={onClick} className='users-view--active-user'>
