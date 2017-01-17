@@ -47,12 +47,12 @@ export default function reducer(state = {queue: [], previousSongs: [], playStatu
 			};
 		case PROGRESS_QUEUE:
 			let newQueue = state.queue.slice(1);
-			return {
+			return state.queue.length > 0 ? {
 				...state,
 				currentSong: state.queue[0],
 				queue: newQueue,
 				previousSongs: state.currentSong ? [...state.previousSongs, state.currentSong] : state.previousSongs
-			};
+			} : state;
 		default:
 			return state;
 	}
