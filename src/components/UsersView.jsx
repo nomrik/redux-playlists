@@ -1,5 +1,6 @@
 import React from 'react';
 import InputAction from './InputAction';
+import onClickOutside from 'react-onclickoutside';
 
 const ActiveUser = ({user, onClick}) => (
 	<div onClick={onClick} className='users-view--active-user'>
@@ -39,6 +40,10 @@ class UsersView extends React.Component {
 		this.setState({newUserName: ''});
 	}
 
+	handleClickOutside() {
+		this.setState({showUserList: false});
+	}
+
 	handleKeyDown(e) {
 		switch (e.key) {
 			case 'Enter':
@@ -76,4 +81,4 @@ class UsersView extends React.Component {
 	}
 }
 
-export default UsersView;
+export default onClickOutside(UsersView);
