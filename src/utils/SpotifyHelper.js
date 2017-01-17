@@ -12,7 +12,8 @@ function normalizeResponse(response) {
 			album: item.album.name,
 			artists: item.artists.map(artist => artist.name),
 			duration: (item.duration_ms / 1000.0 / 60).toFixed(2),
-			previewUrl: item.preview_url
+			previewUrl: item.preview_url,
+			albumImage: item.album.images.length > 0 ? item.album.images[0].url : ''
 		}
 	})
 	return normalizedResponse;

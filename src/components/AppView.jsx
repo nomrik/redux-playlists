@@ -4,6 +4,7 @@ import Playlists from '../containers/Playlists';
 import SongSearch from '../containers/SongSearch';
 import Songs from '../containers/Songs';
 import SignUp from '../containers/SignUp';
+import NowPlaying from '../containers/NowPlaying';
 
 class AppView extends React.Component {
 
@@ -42,16 +43,17 @@ class AppView extends React.Component {
 	}
 
 	render() {
-		let {currentSong, playStatus, usersCount} = this.props;
+		let {playStatus, usersCount} = this.props;
 		return ( usersCount > 0 ?
 			<div className='app-view'>
 				<div className='app-view--top'>
 					<Playlists />
-					<Songs currentSong={currentSong} playStatus={playStatus}/>
+					<Songs playStatus={playStatus}/>
 					<Users />
 				</div>
 				<div className='app-view--bottom'>
-					<SongSearch currentSong={currentSong} playStatus={playStatus}/>
+					<NowPlaying />
+					<SongSearch playStatus={playStatus}/>
 				</div>
 			</div> : <SignUp />
 		);

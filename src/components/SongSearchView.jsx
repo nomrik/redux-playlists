@@ -21,8 +21,8 @@ class SongSearchView extends React.Component {
 	}
 
 	searchSongs() {
-		let {onSearchSongs} = this.props;
-		onSearchSongs(this.state.searchTerm);
+		let {onSearchSongs, currentSong} = this.props;
+		onSearchSongs(this.state.searchTerm, currentSong);
 		this.clearInputField();
 	}
 

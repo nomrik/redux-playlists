@@ -2,7 +2,7 @@ import React from 'react';
 import FontAwesome from 'react-fontawesome';
 
 const SongActionButton = ({song, currentSong, playStatus, onPlay, onPause}) => {
-	if (currentSong === song.id && playStatus !== 'ended') {
+	if (currentSong && currentSong.id === song.id && playStatus !== 'ended') {
 		if (playStatus === 'play') {
 			return <FontAwesome name='pause' style={{marginRight: 20}} onClick={() => onPause()} />;
 		} else {
