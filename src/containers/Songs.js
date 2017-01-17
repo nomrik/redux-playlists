@@ -1,7 +1,8 @@
 import {connect} from 'react-redux';
 import {getSongsListOfActivePlaylist, getActivePlaylist, getCurrentSongObject} from '../selectors';
 import {removeSongFromPlaylist} from '../redux/modules/playlists';
-import {setPlayStatus, emptyQueue, addToQueue, progressQueue, removeFromQueue} from '../redux/modules/player';
+import times from 'lodash/times';
+import {setPlayStatus, resetPlayer, addToQueue, progressQueue, removeFromQueue} from '../redux/modules/player';
 import SongsView from '../components/SongsView';
 
 function mapStateToProps(state) {
@@ -21,10 +22,10 @@ function mapDispatchToProps(dispatch) {
 				dispatch(setPlayStatus('pause'));
 			}
 		},
-		onPlay: songs => {
-			dispatch(emptyQueue());
+		onPlay: (songs, startIndex) => {
+			dispatch(resetPlayer());
 			songs.forEach(song => dispatch(addToQueue(song.id)));
-			dispatch(progressQueue());
+			times(startIndex + 1, () => dispatch(progressQueue()));
 			dispatch(setPlayStatus('play'));
 		},
 		onPause: () => dispatch(setPlayStatus('pause')),

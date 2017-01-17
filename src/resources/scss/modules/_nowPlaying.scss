@@ -25,6 +25,11 @@
 }
 
 .now-playing-view--control {
+	display: flex;
+	align-items: center;
+}
+
+.now-playing-view--control > div {
 	margin-bottom: 110px;
 	background: $background-gray;
 	padding: 20px;
@@ -38,7 +43,22 @@
 	height: 30px;
 }
 
-.now-playing-view--control > .fa-play {
+.now-playing-view--play-pause {
+	margin-right: 20px;
+	margin-left: 20px;
+}
+
+.now-playing-view--control > .now-playing-view--back, .now-playing-view--control > .now-playing-view--forward {
+	width: 15px;
+	height: 15px;
+}
+
+.now-playing-view--play-pause > .fa-play, .now-playing-view--forward > .fa-forward {
 	position: relative;
-	left: 2px;
+	left: 4px;
+}
+
+.now-playing-view--back > .fa-backward {
+	position: relative;
+	left: -4px;
 }

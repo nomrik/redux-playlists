@@ -59,7 +59,7 @@ class SongSearchView extends React.Component {
 					{songs.map(song =>
 						<SongSearchResult
 							key={song.id}
-							onPlay={onPlay}
+							onPlay={() => onPlay(songs, songs.indexOf(song))}
 							onPause={onPause}
 							song={song}
 							onAdd={() => activePlaylist.songs.includes(song.id) ? null : onAddSongToPlaylist(activePlaylist.id, song)}

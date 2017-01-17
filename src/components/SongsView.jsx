@@ -22,7 +22,7 @@ const SongsView = ({playlist, songs, playStatus, onPlay, onPlayAll, onPause, cur
 				key={song.id}
 				song={song}
 				playStatus={playStatus}
-				onPlay={() => onPlay(songs.slice(songs.indexOf(song)))}
+				onPlay={() => onPlay(songs, songs.indexOf(song))}
 				onPause={onPause}
 				currentSong={currentSong}
 				onRemoveSong={() => onRemoveSong(playlist.id, song.id, song.id === currentSong)} />)}

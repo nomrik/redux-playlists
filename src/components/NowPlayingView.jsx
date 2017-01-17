@@ -1,14 +1,22 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 
-const PlayOrPauseControl = ({playStatus, onPlay, onPause, className}) => (
-	<div className={className} onClick={playStatus === 'play' ? onPause : onPlay}>
-		{playStatus === 'play' ?
-			<FontAwesome name='pause' size='2x' />
-			:
-			<FontAwesome name='play' size='2x' />}
+const PlayerControls = ({playStatus, onPlay, onBack, onForward, onPause, className}) => (
+	<div className='now-playing-view--control'>
+		<div className='now-playing-view--back' onClick={onBack}>
+			<FontAwesome name='backward' size='2x' />
+		</div>
+		<div className='now-playing-view--play-pause' onClick={playStatus === 'play' ? onPause : onPlay}>
+			{playStatus === 'play' ?
+				<FontAwesome name='pause' size='2x' />
+				:
+				<FontAwesome name='play' size='2x' />}
+		</div>
+		<div className='now-playing-view--forward' onClick={onForward}>
+			<FontAwesome name='forward' size='2x' />
+		</div>
 	</div>
-)
+);
 
 export default class NowPlayingView extends React.Component {
 	state = {
@@ -16,7 +24,7 @@ export default class NowPlayingView extends React.Component {
 	}
 
 	render() {
-		let {song, playStatus, onPlay, onPause} = this.props;
+		let {song, playStatus, onPlay, onPause, onForward, onBack} = this.props;
 		return (
 			song ? <div
 				onMouseEnter={() => this.setState({showControl: true})}
@@ -24,7 +32,7 @@ export default class NowPlayingView extends React.Component {
 				className='now-playing-view'
 				style={{backgroundImage: `url(${song.albumImage})`}}>
 				{this.state.showControl && <div className='now-playing-view--song-name'>{song.name}</div>}
-				{this.state.showControl && <PlayOrPauseControl className='now-playing-view--control' playStatus={playStatus} onPlay={onPlay} onPause={onPause} />}
+				{this.state.showControl && <PlayerControls playStatus={playStatus} onPlay={onPlay} onForward={onForward} onBack={onBack} onPause={onPause} />}
 			</div> : null
 		);
 	}
