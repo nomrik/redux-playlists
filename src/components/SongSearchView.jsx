@@ -47,7 +47,7 @@ class SongSearchView extends React.Component {
 		let {songs, activeUser, activePlaylist, onAddSongToPlaylist, onPlay, playStatus, onPause, currentSong} = this.props;
 		return (
 			activeUser ?
-			<div style={{margin: 20}}>
+			<div className='song-search-view'>
 				<h2>Search For Songs</h2>
 				<InputAction
 					value={this.state.searchTerm}
@@ -55,16 +55,18 @@ class SongSearchView extends React.Component {
 					onChange={(e) => this.setState({searchTerm: e.target.value})}
 					onAction={() => this.searchSongs()}
 					actionText='Search' />
-				{songs.map(song =>
-					<SongSearchResult
-						key={song.id}
-						onPlay={onPlay}
-						onPause={onPause}
-						song={song}
-						onAdd={() => activePlaylist.songs.includes(song.id) ? null : onAddSongToPlaylist(activePlaylist.id, song)}
-						currentSong={currentSong}
-						playStatus={playStatus}
-						isActivePlaylist={!isEmpty(activePlaylist)}/>)}
+				<div className='song-search-view--search-resutls'>
+					{songs.map(song =>
+						<SongSearchResult
+							key={song.id}
+							onPlay={onPlay}
+							onPause={onPause}
+							song={song}
+							onAdd={() => activePlaylist.songs.includes(song.id) ? null : onAddSongToPlaylist(activePlaylist.id, song)}
+							currentSong={currentSong}
+							playStatus={playStatus}
+							isActivePlaylist={!isEmpty(activePlaylist)}/>)}
+				</div>
 			</div> : null
 		);
 	}

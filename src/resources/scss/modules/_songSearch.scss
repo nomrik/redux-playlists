@@ -1,0 +1,12 @@
+.song-search-view {
+	height: 300px;
+	overflow: hidden;
+	border: 1px solid white;
+	border-radius: 10px;
+	padding-left: 20px;
+}
+
+.song-search-view--search-resutls {
+	height: 100%;
+	overflow: auto;
+}

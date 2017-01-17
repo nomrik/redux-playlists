@@ -44,11 +44,15 @@ class AppView extends React.Component {
 	render() {
 		let {currentSong, playStatus, usersCount} = this.props;
 		return ( usersCount > 0 ?
-			<div style={{display: 'flex'}}>
-				<Playlists />
-				<Songs currentSong={currentSong} playStatus={playStatus}/>
-				<SongSearch currentSong={currentSong} playStatus={playStatus}/>
-				<Users />
+			<div className='app-view'>
+				<div className='app-view--top'>
+					<Playlists />
+					<Songs currentSong={currentSong} playStatus={playStatus}/>
+					<Users />
+				</div>
+				<div className='app-view--bottom'>
+					<SongSearch currentSong={currentSong} playStatus={playStatus}/>
+				</div>
 			</div> : <SignUp />
 		);
 	}

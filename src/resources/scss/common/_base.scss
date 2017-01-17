@@ -19,3 +19,34 @@ body {
 .fa {
 	cursor: pointer;
 }
+
+.app-view {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.app-view--top {
+	display: flex;
+}
+
+.app-view--bottom {
+	margin: 20px;
+	margin-top: auto;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: $light-gray;
+  border-right: 2px solid $background-gray;
+}
