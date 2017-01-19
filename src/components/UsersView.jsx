@@ -24,6 +24,32 @@ const AddUser = ({value, onChange, onAddUser, onKeyDown}) => (
 		actionText='+' />
 );
 
+class UsersList extends React.Component {
+
+	handleClickOutside() {
+		this.props.onCloseList();
+	}
+
+	render() {
+		let {activeUser, otherUsers, onSwitchUser, onAddUser, inputValue, inputOnChange, inputOnKeyDown} = this.props;
+		return (
+			<div className='users-view--users-list-wrapper'>
+				<p className='users-view--logged-in-as'>Logged in as</p>
+				<p className='users-view--active-user-text'>{activeUser}</p>
+				{otherUsers.length > 0 && <OtherUsers users={otherUsers} onSwitchUser={onSwitchUser} />}
+				<p className='users-view--add-user-text'>Add user</p>
+				<AddUser
+					value={inputValue}
+					onChange={newUserName => inputOnChange(newUserName)}
+					onKeyDown={e => inputOnKeyDown(e)}
+					onAddUser={onAddUser} />
+			</div>
+		);
+	}
+}
+
+UsersList = onClickOutside(UsersList);
+
 class UsersView extends React.Component {
 	state = {
 		newUserName: '',
@@ -38,10 +64,6 @@ class UsersView extends React.Component {
 
 	clearInputField() {
 		this.setState({newUserName: ''});
-	}
-
-	handleClickOutside() {
-		this.setState({showUserList: false});
 	}
 
 	handleKeyDown(e) {
@@ -65,20 +87,18 @@ class UsersView extends React.Component {
 			<div className='users-view'>
 				<ActiveUser user={activeUser.charAt(0).toUpperCase()} onClick={() => this.setState({showUserList: !showUserList})}/>
 				{showUserList &&
-					<div className='users-view--users-list-wrapper'>
-						<p className='users-view--logged-in-as'>Logged in as</p>
-						<p className='users-view--active-user-text'>{activeUser}</p>
-						{otherUsers.length > 0 && <OtherUsers users={otherUsers} onSwitchUser={onSwitchUser} />}
-						<p className='users-view--add-user-text'>Add user</p>
-						<AddUser
-							value={newUserName}
-							onChange={newUserName => this.setState({newUserName})}
-							onKeyDown={e => this.handleKeyDown(e)}
-							onAddUser={() => this.addUser()} />
-					</div>}
+					<UsersList
+						activeUser={activeUser}
+						otherUsers={otherUsers}
+						onSwitchUser={onSwitchUser}
+						inputValue={newUserName}
+						inputOnChange={newUserName => this.setState({newUserName})}
+						inputOnKeyDown={e => this.handleKeyDown(e)}
+						onAddUser={() => this.addUser()}
+						onCloseList={() => this.setState({showUserList: false})}/>}
 			</div>
 		);
 	}
 }
 
-export default onClickOutside(UsersView);
+export default UsersView;
