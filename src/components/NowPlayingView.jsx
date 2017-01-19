@@ -24,7 +24,7 @@ export default class NowPlayingView extends React.Component {
 	}
 
 	render() {
-		let {song, playStatus, onPlay, onPause, onForward, onBack} = this.props;
+		let {song, playStatus, volume, onPlay, onPause, onForward, onBack, onSetVolume} = this.props;
 		return (
 			song ? <div
 				onMouseEnter={() => this.setState({showControl: true})}
@@ -33,7 +33,7 @@ export default class NowPlayingView extends React.Component {
 				style={{backgroundImage: `url(${song.albumImage})`}}>
 				{this.state.showControl && <div className='now-playing-view--song-name'>{song.name}</div>}
 				{this.state.showControl && <PlayerControls playStatus={playStatus} onPlay={onPlay} onForward={onForward} onBack={onBack} onPause={onPause} />}
-				{/* {this.state.showControl && <input type='range' min={0} max={100} />} */}
+				{this.state.showControl && <input value={volume * 100} onChange={e => onSetVolume(e.target.value / 100)} type='range' min={0} max={100} />}
 			</div> : null
 		);
 	}

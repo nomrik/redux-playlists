@@ -1,6 +1,7 @@
 // Actions
 const SET_CURRENT_SONG = 'redux-playlists/player/SET_CURRENT_SONG';
 const SET_PLAY_STATUS = 'redux-playlists/player/SET_PLAY_STATUS';
+const SET_VOLUME = 'redux-playlists/player/SET_VOLUME';
 const ADD_TO_QUEUE = 'redux-playlists/player/ADD_TO_QUEUE';
 const MOVE_BACK = 'redux-playlists/player/MOVE_BACK';
 const REMOVE_FROM_QUEUE = 'redux-playlists/player/REMOVE_FROM_QUEUE';
@@ -8,13 +9,18 @@ const RESET_PLAYER = 'redux-playlists/player/RESET_PLAYER';
 const PROGRESS_QUEUE = 'redux-playlists/player/PROGRESS_QUEUE';
 
 // Reducer
-export default function reducer(state = {queue: [], previousSongs: [], playStatus: ''}, action = {}) {
+export default function reducer(state = {queue: [], previousSongs: [], playStatus: '', volume: 1}, action = {}) {
 	switch (action.type) {
 		case SET_CURRENT_SONG:
 			return {
 				...state,
 				currentSong: action.songId
 			};
+			case SET_VOLUME:
+				return {
+					...state,
+					volume: action.volume
+				}
 			case SET_PLAY_STATUS:
 				return {
 					...state,
@@ -43,7 +49,8 @@ export default function reducer(state = {queue: [], previousSongs: [], playStatu
 			return {
 				playStatus: '',
 				queue: [],
-				previousSongs: []
+				previousSongs: [],
+				volume: 1
 			};
 		case PROGRESS_QUEUE:
 			let newQueue = state.queue.slice(1);
@@ -65,6 +72,10 @@ export function setCurrentSong(songId) {
 
 export function setPlayStatus(playStatus) {
 	return {type: SET_PLAY_STATUS, playStatus}
+}
+
+export function setVolume(volume) {
+	return {type: SET_VOLUME, volume}
 }
 
 export function addToQueue(songId) {

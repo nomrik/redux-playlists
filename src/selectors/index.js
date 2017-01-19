@@ -12,6 +12,7 @@ const getSavedSongs = state => state.savedSongs;
 export const getCurrentSong = state => state.player.currentSong;
 export const getNextSong = state => state.player.queue.length > 0 ? state.player.queue[0] : null;
 export const getPlayStatus = state => state.player.playStatus;
+export const getVolume = state => state.player.volume;
 
 const getCombinedSongs = createSelector(
 	[getSavedSongs, getSearchedSongs],

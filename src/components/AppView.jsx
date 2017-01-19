@@ -34,16 +34,20 @@ class AppView extends React.Component {
 			this.audio.src = nextProps.currentSongUrl;
 		}
 
-		if (nextProps.playStatus === 'play') {
-			this.audio.play();
-		} else if (nextProps.playStatus === 'pause') {
-			this.audio.pause();
-		}
 
 	}
 
+	componentDidUpdate() {
+		this.audio.volume = this.props.volume;
+		if (this.props.playStatus === 'play') {
+			this.audio.play();
+		} else if (this.props.playStatus === 'pause') {
+			this.audio.pause();
+		}
+	}
+
 	render() {
-		let {playStatus, usersCount} = this.props;
+		let {playStatus, volume, usersCount} = this.props;
 		return ( usersCount > 0 ?
 			<div className='app-view'>
 				<div className='app-view--top'>
@@ -52,7 +56,7 @@ class AppView extends React.Component {
 					<Users />
 				</div>
 				<div className='app-view--bottom'>
-					<NowPlaying />
+					<NowPlaying volume={volume}/>
 					<SongSearch playStatus={playStatus}/>
 				</div>
 			</div> : <SignUp />

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import AppView from '../components/AppView';
 import {progressQueue, setPlayStatus} from '../redux/modules/player';
-import {getCurrentSong, getNextSong, getCurrentSongUrl, getNextSongUrl, getPlayStatus, getUsersList} from '../selectors';
+import {getCurrentSong, getNextSong, getCurrentSongUrl, getNextSongUrl, getPlayStatus, getUsersList, getVolume} from '../selectors';
 
 function mapStateToProps(state) {
 	return {
@@ -10,7 +10,8 @@ function mapStateToProps(state) {
 		currentSongUrl: getCurrentSongUrl(state),
 		nextSongUrl: getNextSongUrl(state),
 		playStatus: getPlayStatus(state),
-		usersCount: getUsersList(state).length
+		usersCount: getUsersList(state).length,
+		volume: getVolume(state)
 	};
 }
 

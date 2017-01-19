@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {getCurrentSongObject, getPlayStatus} from '../selectors';
 import NowPlayingView from '../components/NowPlayingView';
-import {setPlayStatus, progressQueue, moveBack} from '../redux/modules/player';
+import {setPlayStatus, progressQueue, moveBack, setVolume} from '../redux/modules/player';
 
 function mapStateToProps(state) {
 	return {
@@ -15,7 +15,8 @@ function mapDispatchToProps(dispatch) {
 		onPlay: () => dispatch(setPlayStatus('play')),
 		onPause: () => dispatch(setPlayStatus('pause')),
 		onForward: () => dispatch(progressQueue()),
-		onBack: () => dispatch(moveBack())
+		onBack: () => dispatch(moveBack()),
+		onSetVolume: volume => dispatch(setVolume(volume))
 	};
 }
 
