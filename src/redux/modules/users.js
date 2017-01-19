@@ -27,7 +27,7 @@ export default function reducer(state = {}, action = {}) {
 
 // Action Creators
 export function createUser(userName) {
-	return { type: CREATE, userName }
+	return userName ? { type: CREATE, userName } : undefined
 }
 
 export function deleteUser(userName) {

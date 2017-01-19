@@ -4,6 +4,7 @@ import uuid from 'uuid';
 // Actions
 const CREATE = 'redux-playlists/playlists/CREATE';
 const DELETE = 'redux-playlists/playlists/DELETE';
+const RENAME = 'redux-playlists/playlists/RENAME';
 export const ADD_SONG = 'redux-playlists/playlists/ADD_SONG';
 export const REMOVE_SONG = 'redux-playlists/playlists/REMOVE_SONG';
 
@@ -19,11 +20,21 @@ export default function reducer(state = {}, action = {}) {
 					name: action.playlistName,
 					user: action.userName,
 					songs: [],
-					created: new Date()
+					created: new Date(),
+					isInEditMode: true
 				}
 			};
 		case DELETE:
 			return omit(state, [action.playlistId]);
+		case RENAME:
+			return {
+				...state,
+				[action.playlistId]: {
+					...state[action.playlistId],
+					name: action.newName,
+					isInEditMode: false
+				}
+			};
 		case ADD_SONG:
 			return {
 				...state,
@@ -47,17 +58,21 @@ export default function reducer(state = {}, action = {}) {
 
 // Action Creators
 export function createPlaylist(userName, playlistName) {
-	return { type: CREATE, userName, playlistName }
+	return { type: CREATE, userName, playlistName };
 }
 
 export function deletePlaylist(userName, playlistId) {
-	return { type: DELETE, userName, playlistId }
+	return { type: DELETE, userName, playlistId };
+}
+
+export function renamePlaylist(playlistId, newName) {
+	return { type: RENAME, playlistId, newName };
 }
 
 export function addSongToPlaylist(playlistId, song) {
-	return { type: ADD_SONG, playlistId, song }
+	return { type: ADD_SONG, playlistId, song };
 }
 
 export function removeSongFromPlaylist(playlistId, song) {
-	return { type: REMOVE_SONG, playlistId, song }
+	return { type: REMOVE_SONG, playlistId, song };
 }

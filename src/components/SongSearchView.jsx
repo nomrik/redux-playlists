@@ -54,7 +54,7 @@ class SongSearchView extends React.Component {
 					onKeyDown={e => this.handleKeyDown(e)}
 					onChange={(e) => this.setState({searchTerm: e.target.value})}
 					onAction={() => this.searchSongs()}
-					actionText='Search' />
+					iconName='search' />
 				<div className='song-search-view--search-resutls'>
 					{songs.map(song =>
 						<SongSearchResult

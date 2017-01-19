@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {getPlaylistOfActiveUser, getSearchedSongsList, getCurrentSong} from '../selectors';
-import {createPlaylist, deletePlaylist, removeSongFromPlaylist} from '../redux/modules/playlists';
+import {createPlaylist, deletePlaylist, renamePlaylist, removeSongFromPlaylist} from '../redux/modules/playlists';
 import {setPlayStatus} from '../redux/modules/player';
 import {switchPlaylist} from '../redux/modules/activePlaylist';
 import PlaylistsView from '../components/PlaylistsView';
@@ -28,6 +28,7 @@ function mapDispatchToProps(dispatch) {
 			dispatch(deletePlaylist(userName, playlistId));
 		},
 		onSwitchPlaylist: (userName, playlistId) => dispatch(switchPlaylist(userName, playlistId)),
+		onRenamePlaylist: (playlistId, newName) => dispatch(renamePlaylist(playlistId, newName))
 	};
 }
 

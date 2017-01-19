@@ -1,62 +1,101 @@
 import React from 'react';
-import InputAction from './InputAction';
 import isEqual from 'lodash/isEqual';
 import FontAwesome from 'react-fontawesome';
+import onClickOutside from 'react-onclickoutside';
 
-const Playlist = ({playlist, onSwitchPlaylist, onDeletePlaylist, isActive}) => (
-	<div style={{marginTop: 20}}>
-		<span onClick={onSwitchPlaylist} style={{cursor: 'pointer', fontWeight: isActive ? 'bold' : 'normal', marginRight: 20}}>{playlist.name}</span>
-		<FontAwesome name='close' onClick={onDeletePlaylist} />
-	</div>
-);
-
-class PlaylistsView extends React.Component {
-	state = {
-		newPlaylistName: ''
+class Playlist extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			isInEditMode: props.isInEditMode,
+			newPlaylistName: props.playlist.name
+		}
 	}
 
-	createPlaylist() {
-		let {onCreatePlaylist, activeUser} = this.props;
-		onCreatePlaylist(activeUser, this.state.newPlaylistName);
-		this.clearInputField();
+	renamePlaylist() {
+		let {playlist: {id}, onRenamePlaylist} = this.props;
+		onRenamePlaylist(id, this.state.newPlaylistName);
+		this.setState({isInEditMode: false});
 	}
 
-	clearInputField() {
-		this.setState({newPlaylistName: ''});
+	handleClickOutside() {
+		this.renamePlaylist();
 	}
 
 	handleKeyDown(e) {
 		switch (e.key) {
 			case 'Enter':
-				this.createPlaylist();
+				this.renamePlaylist();
+				this.setState({isInEditMode: false});
 				break;
 			case 'Escape':
-				this.clearInputField();
+				this.setState({newPlaylistName: this.props.playlist.name, isInEditMode: false});
 				break;
 			default:
 				return;
 		}
 	}
 
+	componentDidMount() {
+		if (this.props.isInEditMode) {
+			this.input.focus();
+			this.input.select();
+		}
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (this.state.isInEditMode && !prevState.isInEditMode) {
+			this.input.focus();
+			this.input.select();
+		}
+	}
+
 	render() {
-		let {playlists, activeUser, activePlaylist, currentSong, searchedSongs, onDeletePlaylist, onSwitchPlaylist} = this.props;
+		let {playlist, onSwitchPlaylist, onDeletePlaylist, isActive} = this.props;
+		const inputStyle = {
+			marginRight: 10,
+    	border: 'none',
+    	padding: 4,
+    	borderRadius: 5,
+		};
+		return (
+			<div style={{marginTop: 20}}>
+				{!this.state.isInEditMode ?
+					<span onClick={onSwitchPlaylist} onDoubleClick={() => this.setState({isInEditMode: true})} style={{cursor: 'pointer', fontWeight: isActive ? 'bold' : 'normal', marginRight: 20}}>{playlist.name}</span>
+					:
+					<input ref={input => this.input = input} style={inputStyle} value={this.state.newPlaylistName} onChange={e =>  this.setState({newPlaylistName: e.target.value})} onKeyDown={e => this.handleKeyDown(e)} />
+				}
+				<FontAwesome name='close' onClick={onDeletePlaylist} />
+			</div>
+		);
+	}
+}
+
+Playlist = onClickOutside(Playlist);
+
+class PlaylistsView extends React.Component {
+
+	createPlaylist() {
+		let {onCreatePlaylist, activeUser} = this.props;
+		onCreatePlaylist(activeUser, 'Playlist');
+	}
+
+	render() {
+		let {playlists, activeUser, activePlaylist, currentSong, searchedSongs, onDeletePlaylist, onSwitchPlaylist, onRenamePlaylist} = this.props;
 		return (
 			activeUser ?
-			<div style={{margin: 20}}>
-				<h2>Playlists</h2>
-				<InputAction
-					value={this.state.newPlaylistName}
-					onKeyDown={e => this.handleKeyDown(e)}
-					onChange={(e) => this.setState({newPlaylistName: e.target.value})}
-					onAction={() => this.createPlaylist()}
-					actionText='Add' />
+			<div style={{margin: 20, width: 230}}>
+				<h2 style={{marginRight: 10, display: 'inline'}}>Playlists</h2>
+				<FontAwesome name='plus' onClick={() => this.createPlaylist()}	/>
 				{playlists.map(playlist =>
 					<Playlist
 						key={playlist.id}
 						playlist={playlist}
 						onSwitchPlaylist={() => onSwitchPlaylist(activeUser, playlist.id)}
 						onDeletePlaylist={() => onDeletePlaylist(activeUser, playlist.id, playlist.songs, currentSong, searchedSongs)}
-						isActive={isEqual(activePlaylist, {user: activeUser, playlist: playlist.id})}/>)}
+						onRenamePlaylist={onRenamePlaylist}
+						isActive={isEqual(activePlaylist, {user: activeUser, playlist: playlist.id})}
+						isInEditMode={playlist.isInEditMode}/>)}
 			</div> : null
 		);
 	}

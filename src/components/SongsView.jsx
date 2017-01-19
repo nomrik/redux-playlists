@@ -16,7 +16,7 @@ const PlaylistSong = ({song, playStatus, onPlay, onPause, currentSong, onRemoveS
 const SongsView = ({playlist, songs, playStatus, onPlay, onPlayAll, onPause, currentSong, onRemoveSong}) => (
 	playlist.id ?
 	<div style={{margin: 20}}>
-		<h2>{playlist.name}</h2>
+		<h2 style={{marginTop: 0}}>{playlist.name}</h2>
 		{songs.map(song =>
 			<PlaylistSong
 				key={song.id}

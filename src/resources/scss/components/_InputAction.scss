@@ -4,6 +4,10 @@
 	width:260px;
 }
 
+.input-action-wrapper.with-icon {
+	width:225px;
+}
+
 .input-action-wrapper > span {
 	display: flex;
 }
@@ -33,5 +37,5 @@
 	background-color: white;
 	cursor: pointer;
 
-	color: rgb(82, 82, 82);
+	color: $background-gray;
 }
