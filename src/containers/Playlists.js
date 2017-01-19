@@ -18,16 +18,16 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 	return {
 		onCreatePlaylist: (userName, playlistName) => dispatch(createPlaylist(userName, playlistName)),
-		onDeletePlaylist: (userName, playlistId, songs, currentSong, searchedSongs) => {
+		onDeletePlaylist: (playlistId, songs, currentSong, searchedSongs) => {
 			songs.forEach(song => {
 				dispatch(removeSongFromPlaylist(playlistId, song));
 				if (song === currentSong && !searchedSongs.map(song => song.id).includes(song)) {
 					dispatch(setPlayStatus('pause'));
 				}
 			});
-			dispatch(deletePlaylist(userName, playlistId));
+			dispatch(deletePlaylist(playlistId));
 		},
-		onSwitchPlaylist: (userName, playlistId) => dispatch(switchPlaylist(userName, playlistId)),
+		onSwitchPlaylist: playlistId => dispatch(switchPlaylist(playlistId)),
 		onRenamePlaylist: (playlistId, newName) => dispatch(renamePlaylist(playlistId, newName))
 	};
 }

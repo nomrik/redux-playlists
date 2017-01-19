@@ -1,5 +1,4 @@
 import React from 'react';
-import isEqual from 'lodash/isEqual';
 import FontAwesome from 'react-fontawesome';
 import onClickOutside from 'react-onclickoutside';
 
@@ -19,7 +18,9 @@ class Playlist extends React.Component {
 	}
 
 	handleClickOutside() {
-		this.renamePlaylist();
+		if (this.state.isInEditMode) {
+			this.renamePlaylist();
+		}
 	}
 
 	handleKeyDown(e) {
@@ -91,10 +92,10 @@ class PlaylistsView extends React.Component {
 					<Playlist
 						key={playlist.id}
 						playlist={playlist}
-						onSwitchPlaylist={() => onSwitchPlaylist(activeUser, playlist.id)}
-						onDeletePlaylist={() => onDeletePlaylist(activeUser, playlist.id, playlist.songs, currentSong, searchedSongs)}
+						onSwitchPlaylist={() => onSwitchPlaylist(playlist.id)}
+						onDeletePlaylist={() => onDeletePlaylist(playlist.id, playlist.songs, currentSong, searchedSongs)}
 						onRenamePlaylist={onRenamePlaylist}
-						isActive={isEqual(activePlaylist, {user: activeUser, playlist: playlist.id})}
+						isActive={activePlaylist === playlist.id}
 						isInEditMode={playlist.isInEditMode}/>)}
 			</div> : null
 		);

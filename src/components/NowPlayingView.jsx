@@ -33,6 +33,7 @@ export default class NowPlayingView extends React.Component {
 				style={{backgroundImage: `url(${song.albumImage})`}}>
 				{this.state.showControl && <div className='now-playing-view--song-name'>{song.name}</div>}
 				{this.state.showControl && <PlayerControls playStatus={playStatus} onPlay={onPlay} onForward={onForward} onBack={onBack} onPause={onPause} />}
+				{this.state.showControl && <input type='range' min={0} max={100} />}
 			</div> : null
 		);
 	}

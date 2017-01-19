@@ -3,8 +3,8 @@ import uuid from 'uuid';
 
 // Actions
 const CREATE = 'redux-playlists/playlists/CREATE';
-const DELETE = 'redux-playlists/playlists/DELETE';
-const RENAME = 'redux-playlists/playlists/RENAME';
+export const DELETE = 'redux-playlists/playlists/DELETE';
+export const RENAME = 'redux-playlists/playlists/RENAME';
 export const ADD_SONG = 'redux-playlists/playlists/ADD_SONG';
 export const REMOVE_SONG = 'redux-playlists/playlists/REMOVE_SONG';
 
@@ -12,11 +12,10 @@ export const REMOVE_SONG = 'redux-playlists/playlists/REMOVE_SONG';
 export default function reducer(state = {}, action = {}) {
 	switch (action.type) {
 		case CREATE:
-			let newId = uuid();
 			return {
 				...state,
-				[newId]: {
-					id: newId,
+				[action.playlistId]: {
+					id: action.playlistId,
 					name: action.playlistName,
 					user: action.userName,
 					songs: [],
@@ -58,11 +57,12 @@ export default function reducer(state = {}, action = {}) {
 
 // Action Creators
 export function createPlaylist(userName, playlistName) {
-	return { type: CREATE, userName, playlistName };
+	let newId = uuid();
+	return { type: CREATE, userName, playlistName, playlistId: newId };
 }
 
-export function deletePlaylist(userName, playlistId) {
-	return { type: DELETE, userName, playlistId };
+export function deletePlaylist(playlistId) {
+	return { type: DELETE, playlistId };
 }
 
 export function renamePlaylist(playlistId, newName) {

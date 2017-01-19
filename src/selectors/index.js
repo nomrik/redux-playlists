@@ -6,7 +6,7 @@ import { createSelector } from 'reselect';
 const getUsers = state => state.users;
 export const getPlaylists = state => state.playlists;
 const getActiveUser = state => state.activeUser;
-const getActivePlaylistId = state => state.activePlaylist.playlist;
+const getActivePlaylistId = state => state.activePlaylist;
 const getSearchedSongs = state => state.searchedSongs;
 const getSavedSongs = state => state.savedSongs;
 export const getCurrentSong = state => state.player.currentSong;
