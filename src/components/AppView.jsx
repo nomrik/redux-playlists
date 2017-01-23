@@ -33,8 +33,6 @@ class AppView extends React.Component {
 		if (nextProps.currentSong !== this.props.currentSong) {
 			this.audio.src = nextProps.currentSongUrl;
 		}
-
-
 	}
 
 	componentDidUpdate() {
@@ -47,17 +45,17 @@ class AppView extends React.Component {
 	}
 
 	render() {
-		let {playStatus, volume, usersCount} = this.props;
+		let {usersCount} = this.props;
 		return ( usersCount > 0 ?
 			<div className='app-view'>
 				<div className='app-view--top'>
 					<Playlists />
-					<Songs playStatus={playStatus}/>
+					<Songs />
 					<Users />
 				</div>
 				<div className='app-view--bottom'>
-					<NowPlaying volume={volume}/>
-					<SongSearch playStatus={playStatus}/>
+					<NowPlaying />
+					<SongSearch />
 				</div>
 			</div> : <SignUp />
 		);

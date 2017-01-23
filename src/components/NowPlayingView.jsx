@@ -18,6 +18,10 @@ const PlayerControls = ({playStatus, onPlay, onBack, onForward, onPause, classNa
 	</div>
 );
 
+const VolumeControl = ({volume, onSetVolume}) => (
+	<input value={volume * 100} onChange={e => onSetVolume(e.target.value / 100)} type='range' min={0} max={100} />
+);
+
 export default class NowPlayingView extends React.Component {
 	state = {
 		showControl: false
@@ -33,7 +37,7 @@ export default class NowPlayingView extends React.Component {
 				style={{backgroundImage: `url(${song.albumImage})`}}>
 				{this.state.showControl && <div className='now-playing-view--song-name'>{song.name}</div>}
 				{this.state.showControl && <PlayerControls playStatus={playStatus} onPlay={onPlay} onForward={onForward} onBack={onBack} onPause={onPause} />}
-				{this.state.showControl && <input value={volume * 100} onChange={e => onSetVolume(e.target.value / 100)} type='range' min={0} max={100} />}
+				{this.state.showControl && <VolumeControl volume={volume} onSetVolume={onSetVolume} />}
 			</div> : null
 		);
 	}

@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {getSongsListOfActivePlaylist, getActivePlaylist, getCurrentSongObject} from '../selectors';
+import {getSongsListOfActivePlaylist, getActivePlaylist, getCurrentSongObject, getPlayStatus} from '../selectors';
 import {removeSongFromPlaylist} from '../redux/modules/playlists';
 import times from 'lodash/times';
 import {setPlayStatus, resetPlayer, addToQueue, progressQueue, removeFromQueue} from '../redux/modules/player';
@@ -9,7 +9,8 @@ function mapStateToProps(state) {
 	return {
 		songs: getSongsListOfActivePlaylist(state),
 		playlist: getActivePlaylist(state),
-		currentSong: getCurrentSongObject(state)
+		currentSong: getCurrentSongObject(state),
+		playStatus: getPlayStatus(state)
 	};
 }
 

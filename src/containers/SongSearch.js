@@ -4,7 +4,7 @@ import {addSongToPlaylist} from '../redux/modules/playlists';
 import {setPlayStatus, resetPlayer, addToQueue, progressQueue} from '../redux/modules/player';
 import Spotify from '../utils/SpotifyHelper';
 import times from 'lodash/times';
-import {getSearchedSongsList, getActivePlaylist, getCurrentSongObject} from '../selectors'
+import {getSearchedSongsList, getActivePlaylist, getCurrentSongObject, getPlayStatus} from '../selectors'
 import SongSearchView from '../components/SongSearchView';
 
 function mapStateToProps(state) {
@@ -12,7 +12,8 @@ function mapStateToProps(state) {
 		activeUser: state.activeUser,
 		activePlaylist: getActivePlaylist(state),
 		songs: getSearchedSongsList(state),
-		currentSong: getCurrentSongObject(state)
+		currentSong: getCurrentSongObject(state),
+		playStatus: getPlayStatus(state)
 	};
 }
 

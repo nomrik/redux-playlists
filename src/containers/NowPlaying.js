@@ -1,12 +1,13 @@
 import {connect} from 'react-redux';
-import {getCurrentSongObject, getPlayStatus} from '../selectors';
+import {getCurrentSongObject, getPlayStatus, getVolume} from '../selectors';
 import NowPlayingView from '../components/NowPlayingView';
 import {setPlayStatus, progressQueue, moveBack, setVolume} from '../redux/modules/player';
 
 function mapStateToProps(state) {
 	return {
 		song: getCurrentSongObject(state),
-		playStatus: getPlayStatus(state)
+		playStatus: getPlayStatus(state),
+		volume: getVolume(state)
 	};
 }
 
