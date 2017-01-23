@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import {getUsersList} from '../selectors';
 import {createUser, deleteUser} from '../redux/modules/users';
 import {switchUser} from '../redux/modules/activeUser';
+import {switchPlaylist} from '../redux/modules/activePlaylist';
 import UsersView from '../components/UsersView';
 
 function mapStateToProps(state) {
@@ -13,9 +14,15 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		onCreateUser: userName => dispatch(createUser(userName)),
+		onCreateUser: userName => {
+			dispatch(createUser(userName));
+			dispatch(switchPlaylist(''));
+		},
 		onDeleteUser: userName => dispatch(deleteUser(userName)),
-		onSwitchUser: userName => dispatch(switchUser(userName))
+		onSwitchUser: userName => {
+			dispatch(switchUser(userName));
+			dispatch(switchPlaylist(''));
+		}
 	};
 }
 
