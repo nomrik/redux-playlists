@@ -7,25 +7,46 @@ const MOVE_BACK = 'redux-playlists/player/MOVE_BACK';
 const REMOVE_FROM_QUEUE = 'redux-playlists/player/REMOVE_FROM_QUEUE';
 const RESET_PLAYER = 'redux-playlists/player/RESET_PLAYER';
 const PROGRESS_QUEUE = 'redux-playlists/player/PROGRESS_QUEUE';
+const SET_DURATION = 'redux-playlists/player/SET_DURATION';
+const SET_CURRENT_TIME = 'redux-playlists/player/SET_CURRENT_TIME';
+
+const initialState = {
+	queue: [],
+	previousSongs: [],
+	playStatus: '',
+	volume: 1,
+	currentTime: 0,
+	duration: 0
+};
 
 // Reducer
-export default function reducer(state = {queue: [], previousSongs: [], playStatus: '', volume: 1}, action = {}) {
+export default function reducer(state = initialState, action = {}) {
 	switch (action.type) {
 		case SET_CURRENT_SONG:
 			return {
 				...state,
 				currentSong: action.songId
 			};
-			case SET_VOLUME:
-				return {
-					...state,
-					volume: action.volume
-				}
-			case SET_PLAY_STATUS:
-				return {
-					...state,
-					playStatus: action.playStatus
-				};
+		case SET_VOLUME:
+			return {
+				...state,
+				volume: action.volume
+			}
+		case SET_PLAY_STATUS:
+			return {
+				...state,
+				playStatus: action.playStatus
+			};
+		case SET_DURATION:
+			return {
+				...state,
+				duration: action.duration || 0
+			};
+		case SET_CURRENT_TIME:
+			return {
+				...state,
+				currentTime: action.currentTime || 0
+			};
 		case ADD_TO_QUEUE:
 			return {
 				...state,
@@ -46,12 +67,7 @@ export default function reducer(state = {queue: [], previousSongs: [], playStatu
 				queue: state.queue.filter(songId => songId !== action.songId)
 			};
 		case RESET_PLAYER:
-			return {
-				playStatus: '',
-				queue: [],
-				previousSongs: [],
-				volume: 1
-			};
+			return initialState;
 		case PROGRESS_QUEUE:
 			let newQueue = state.queue.slice(1);
 			return state.queue.length > 0 ? {
@@ -67,31 +83,39 @@ export default function reducer(state = {queue: [], previousSongs: [], playStatu
 
 // Action Creators
 export function setCurrentSong(songId) {
-	return {type: SET_CURRENT_SONG, songId}
+	return {type: SET_CURRENT_SONG, songId};
 }
 
 export function setPlayStatus(playStatus) {
-	return {type: SET_PLAY_STATUS, playStatus}
+	return {type: SET_PLAY_STATUS, playStatus};
 }
 
 export function setVolume(volume) {
-	return {type: SET_VOLUME, volume}
+	return {type: SET_VOLUME, volume};
+}
+
+export function setDuration(duration) {
+	return {type: SET_DURATION, duration};
+}
+
+export function setCurrentTime(currentTime) {
+	return {type: SET_CURRENT_TIME, currentTime};
 }
 
 export function addToQueue(songId) {
-	return {type: ADD_TO_QUEUE, songId}
+	return {type: ADD_TO_QUEUE, songId};
 }
 
 export function moveBack(songId) {
-	return {type: MOVE_BACK, songId}
+	return {type: MOVE_BACK, songId};
 }
 
 export function removeFromQueue(songId) {
-	return {type: REMOVE_FROM_QUEUE, songId}
+	return {type: REMOVE_FROM_QUEUE, songId};
 }
 
-export function resetPlayer(songId) {
-	return {type: RESET_PLAYER, songId}
+export function resetPlayer() {
+	return {type: RESET_PLAYER};
 }
 
 export function progressQueue() {

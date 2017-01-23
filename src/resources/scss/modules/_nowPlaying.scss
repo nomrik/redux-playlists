@@ -12,6 +12,24 @@
 	border-radius: 5px;
 }
 
+.now-playing-view--timer-control {
+	margin: 10px;
+}
+
+.now-playing-view--timer-control input[type="range"] {
+	width: 60%;
+	&::-webkit-slider-thumb {
+		width: 15px;
+		height:15px;
+		margin-top: -5px;
+	}
+	&::-moz-range-thumb {
+		width: 15px;
+		height:15px;
+		margin-top: -5px;
+	}
+}
+
 
 .now-playing-view--song-name {
 	margin-bottom: auto;

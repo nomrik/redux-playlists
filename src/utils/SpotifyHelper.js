@@ -1,16 +1,7 @@
 import axios from 'axios';
+import {convertMillisecondsToDisplayFormat} from './TimeFormatter';
 
 const baseUrl = 'https://api.spotify.com/v1'
-
-function convertMillisecondsToDisplayFormat(num) {
-	let parts = (num / 1000.0 / 60).toFixed(2).toString().split('.');
-	let minutes = parts[0];
-	let seconds = Math.round(parts[1] * 0.6);
-	if (seconds < 10) {
-		seconds = `0${seconds}`;
-	}
-	return `${minutes}:${seconds}`;
-}
 
 function normalizeResponse(response) {
 	let { data: { tracks: { items } } } = response;

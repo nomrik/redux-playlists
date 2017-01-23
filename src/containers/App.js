@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import AppView from '../components/AppView';
-import {progressQueue, setPlayStatus} from '../redux/modules/player';
+import {progressQueue, setPlayStatus, setDuration, setCurrentTime} from '../redux/modules/player';
 import {getCurrentSong, getNextSong, getCurrentSongUrl, getNextSongUrl, getPlayStatus, getUsersList, getVolume} from '../selectors';
 
 function mapStateToProps(state) {
@@ -21,7 +21,9 @@ function mapDispatchToProps(dispatch) {
 			dispatch(progressQueue());
 			dispatch(setPlayStatus('play'));
 		},
-		endPlaying: () => dispatch(setPlayStatus('ended'))
+		endPlaying: () => dispatch(setPlayStatus('ended')),
+		onSetDuration : duration => dispatch(setDuration(duration)),
+		onSetCurrentTime : currentTime => dispatch(setCurrentTime(currentTime)),
 	}
 }
 

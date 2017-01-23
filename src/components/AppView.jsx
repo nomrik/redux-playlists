@@ -16,6 +16,8 @@ class AppView extends React.Component {
 	componentDidMount() {
 		this.audio = new Audio();
 		this.audio.addEventListener('ended', this.playNext);
+		this.audio.addEventListener('durationchange', () => this.props.onSetDuration(Math.round(this.audio.duration)))
+		this.audio.addEventListener('timeupdate', () => this.props.onSetCurrentTime(Math.round(this.audio.currentTime)))
 	}
 
 	playNext() {
