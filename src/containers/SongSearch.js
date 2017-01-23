@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {loadSongs} from '../redux/modules/searchedSongs';
 import {addSongToPlaylist} from '../redux/modules/playlists';
-import {setPlayStatus, resetPlayer, addToQueue, progressQueue} from '../redux/modules/player';
+import {setPlayStatus, resetPlayer, addToQueue, progressQueue, addPendingChange, changesTypes} from '../redux/modules/player';
 import Spotify from '../utils/SpotifyHelper';
 import times from 'lodash/times';
 import {getSearchedSongsList, getActivePlaylist, getCurrentSongObject, getPlayStatus} from '../selectors'
@@ -32,8 +32,12 @@ function mapDispatchToProps(dispatch) {
 			songs.forEach(song => dispatch(addToQueue(song.id)));
 			times(startIndex + 1, () => dispatch(progressQueue()));
 			dispatch(setPlayStatus('play'));
+			dispatch(addPendingChange({type: changesTypes.PLAY_STATUS}));
 		},
-		onPause: () => dispatch(setPlayStatus('pause'))
+		onPause: () => {
+			dispatch(setPlayStatus('pause'));
+			dispatch(addPendingChange({type: changesTypes.PLAY_STATUS}));
+		}
 	};
 }
 

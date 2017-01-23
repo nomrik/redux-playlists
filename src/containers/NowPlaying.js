@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {getCurrentSongObject, getPlayStatus, getVolume, getCurrentTime, getRemainingTime, getDuration} from '../selectors';
 import NowPlayingView from '../components/NowPlayingView';
-import {setPlayStatus, progressQueue, moveBack, setVolume} from '../redux/modules/player';
+import {setPlayStatus, progressQueue, moveBack, setVolume, addPendingChange, changesTypes, setCurrentTime} from '../redux/modules/player';
 
 function mapStateToProps(state) {
 	return {
@@ -16,11 +16,24 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		onPlay: () => dispatch(setPlayStatus('play')),
-		onPause: () => dispatch(setPlayStatus('pause')),
+		onPlay: () => {
+			dispatch(setPlayStatus('play'));
+			dispatch(addPendingChange({type: changesTypes.PLAY_STATUS}));
+		},
+		onPause: () => {
+			dispatch(setPlayStatus('pause'));
+			dispatch(addPendingChange({type: changesTypes.PLAY_STATUS}));
+		},
 		onForward: () => dispatch(progressQueue()),
 		onBack: () => dispatch(moveBack()),
-		onSetVolume: volume => dispatch(setVolume(volume))
+		onSetVolume: volume => {
+			dispatch(setVolume(volume))
+			dispatch(addPendingChange({type: changesTypes.VOLUME}));
+		},
+		onSetCurrentTime: currentTime => {
+			dispatch(setCurrentTime(currentTime));
+			dispatch(addPendingChange({type: changesTypes.CURRENT_TIME}));
+		},
 	};
 }
 

@@ -1,3 +1,5 @@
+import keymirror from 'keymirror';
+
 // Actions
 const SET_CURRENT_SONG = 'redux-playlists/player/SET_CURRENT_SONG';
 const SET_PLAY_STATUS = 'redux-playlists/player/SET_PLAY_STATUS';
@@ -9,6 +11,14 @@ const RESET_PLAYER = 'redux-playlists/player/RESET_PLAYER';
 const PROGRESS_QUEUE = 'redux-playlists/player/PROGRESS_QUEUE';
 const SET_DURATION = 'redux-playlists/player/SET_DURATION';
 const SET_CURRENT_TIME = 'redux-playlists/player/SET_CURRENT_TIME';
+const ADD_PENDING_CHANGE = 'redux-playlists/player/ADD_PENDING_CHANGE';
+const REMOVE_PENDING_CHANGE = 'redux-playlists/player/REMOVE_PENDING_CHANGE';
+
+export const changesTypes = keymirror({
+	PLAY_STATUS: null,
+	CURRENT_TIME: null,
+	VOLUME: null
+});
 
 const initialState = {
 	queue: [],
@@ -16,7 +26,8 @@ const initialState = {
 	playStatus: '',
 	volume: 1,
 	currentTime: 0,
-	duration: 0
+	duration: 0,
+	pendingChanges: []
 };
 
 // Reducer
@@ -76,6 +87,16 @@ export default function reducer(state = initialState, action = {}) {
 				queue: newQueue,
 				previousSongs: state.currentSong ? [...state.previousSongs, state.currentSong] : state.previousSongs
 			} : state;
+		case ADD_PENDING_CHANGE:
+			return {
+				...state,
+				pendingChanges: [...state.pendingChanges, action.change]
+			};
+		case REMOVE_PENDING_CHANGE:
+			return {
+				...state,
+				pendingChanges: state.pendingChanges.filter(change => change.type !== action.change.type)
+			};
 		default:
 			return state;
 	}
@@ -119,5 +140,13 @@ export function resetPlayer() {
 }
 
 export function progressQueue() {
-	return {type: PROGRESS_QUEUE}
+	return {type: PROGRESS_QUEUE};
+}
+
+export function addPendingChange(change) {
+	return {type: ADD_PENDING_CHANGE, change};
+}
+
+export function removePendingChange(change) {
+	return {type: REMOVE_PENDING_CHANGE, change};
 }

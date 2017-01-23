@@ -5,6 +5,7 @@ import SongSearch from '../containers/SongSearch';
 import Songs from '../containers/Songs';
 import SignUp from '../containers/SignUp';
 import NowPlaying from '../containers/NowPlaying';
+import {changesTypes} from '../redux/modules/player';
 
 class AppView extends React.Component {
 
@@ -34,16 +35,37 @@ class AppView extends React.Component {
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.currentSong !== this.props.currentSong) {
 			this.audio.src = nextProps.currentSongUrl;
+			if (this.props.playStatus === 'play') {
+				this.audio.play();
+			} else if (this.props.playStatus === 'pause') {
+				this.audio.pause();
+			}
 		}
 	}
 
 	componentDidUpdate() {
-		this.audio.volume = this.props.volume;
-		if (this.props.playStatus === 'play') {
-			this.audio.play();
-		} else if (this.props.playStatus === 'pause') {
-			this.audio.pause();
-		}
+		let {pendingChanges, onRemovePendingChange} = this.props;
+		pendingChanges.forEach(change => {
+			switch (change.type) {
+				case changesTypes.PLAY_STATUS:
+					if (this.props.playStatus === 'play') {
+						this.audio.play();
+					} else if (this.props.playStatus === 'pause') {
+						this.audio.pause();
+					}
+					break;
+				case changesTypes.VOLUME:
+					this.audio.volume = this.props.volume;
+					break;
+				case changesTypes.CURRENT_TIME:
+					console.log(this.props.currentTime);
+					this.audio.currentTime = this.props.currentTime;
+					break;
+				default:
+					return
+			}
+			onRemovePendingChange(change.type)
+		})
 	}
 
 	render() {

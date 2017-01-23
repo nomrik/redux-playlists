@@ -23,10 +23,12 @@ const VolumeControl = ({volume, onSetVolume}) => (
 	<input value={volume * 100} onChange={e => onSetVolume(e.target.value / 100)} type='range' min={0} max={100} />
 );
 
-const TimerControl = ({currentTime, remainingTime, duration}) => (
+const TimerControl = ({currentTime, remainingTime, duration, onSetCurrentTime}) => (
 	<div>
 		<span>{convertSecondsToDisplayFormat(currentTime)}</span>
-		<span className='now-playing-view--timer-control'><input value={currentTime} type='range' min={0} max={duration} /></span>
+		<span className='now-playing-view--timer-control'>
+			<input value={currentTime} onChange={e => onSetCurrentTime(e.target.value)} type='range' min={0} max={duration} />
+		</span>
 		<span>{convertSecondsToDisplayFormat(remainingTime)}</span>
 	</div>
 );
@@ -37,7 +39,7 @@ export default class NowPlayingView extends React.Component {
 	}
 
 	render() {
-		let {song, playStatus, volume, onPlay, onPause, onForward, onBack, onSetVolume, currentTime, remainingTime, duration} = this.props;
+		let {song, playStatus, volume, onPlay, onPause, onForward, onBack, onSetVolume, onSetCurrentTime, currentTime, remainingTime, duration} = this.props;
 		return (
 			song ? <div
 				onMouseEnter={() => this.setState({showControl: true})}
@@ -47,7 +49,7 @@ export default class NowPlayingView extends React.Component {
 				{this.state.showControl &&
 					<div className='now-playing-view--song-name'>
 						<div>{song.name}</div>
-						<TimerControl currentTime={currentTime} remainingTime={remainingTime} duration={duration} />
+						<TimerControl currentTime={currentTime} remainingTime={remainingTime} duration={duration} onSetCurrentTime={onSetCurrentTime}/>
 					</div>
 				}
 				{this.state.showControl && <PlayerControls playStatus={playStatus} onPlay={onPlay} onForward={onForward} onBack={onBack} onPause={onPause} />}
