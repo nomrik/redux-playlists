@@ -58,7 +58,6 @@ class AppView extends React.Component {
 					this.audio.volume = this.props.volume;
 					break;
 				case changesTypes.CURRENT_TIME:
-					console.log(this.props.currentTime);
 					this.audio.currentTime = this.props.currentTime;
 					break;
 				default:
@@ -69,9 +68,9 @@ class AppView extends React.Component {
 	}
 
 	render() {
-		let {usersCount} = this.props;
+		let {usersCount, bgColor, fontColor} = this.props;
 		return ( usersCount > 0 ?
-			<div className='app-view'>
+			<div className='app-view' style={{backgroundColor: bgColor, color: fontColor, borderColor: fontColor}}>
 				<div className='app-view--top'>
 					<Playlists />
 					<Songs />

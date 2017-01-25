@@ -1,7 +1,7 @@
 .input-action-wrapper {
 	border-radius: 5px;
-	border: 1px solid white;
-	width:260px;
+	border: 1px solid;
+	width:230px;
 }
 
 .input-action-wrapper.with-icon {
@@ -15,9 +15,12 @@
 .input-action-control {
 	border: none;
 	background-color: transparent;
-	color: white;
-	border-right: 1px solid white;
 	padding: 6px 12px;
+	color: inherit;
+	font-family: inherit;
+	&:focus {
+		outline: none;
+	}
 }
 
 .input-action-button {
@@ -31,11 +34,4 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-}
-
-.input-action-button:hover {
-	background-color: white;
-	cursor: pointer;
-
-	color: $background-gray;
 }

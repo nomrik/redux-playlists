@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import {getCurrentSongObject, getPlayStatus, getVolume, getCurrentTime, getRemainingTime, getDuration} from '../selectors';
 import NowPlayingView from '../components/NowPlayingView';
 import {setPlayStatus, progressQueue, moveBack, setVolume, addPendingChange, changesTypes, setCurrentTime} from '../redux/modules/player';
+import {setBgColor, setFontColor} from '../redux/modules/colors';
 
 function mapStateToProps(state) {
 	return {
@@ -34,6 +35,8 @@ function mapDispatchToProps(dispatch) {
 			dispatch(setCurrentTime(currentTime));
 			dispatch(addPendingChange({type: changesTypes.CURRENT_TIME}));
 		},
+		onSetBgColor: color => dispatch(setBgColor(color)),
+		onSetFontColor: color => dispatch(setFontColor(color))
 	};
 }
 

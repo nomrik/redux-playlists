@@ -1,6 +1,17 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import {convertSecondsToDisplayFormat} from '../utils/TimeFormatter';
+import getPixels from 'get-pixels';
+import getPalette from 'get-rgba-palette';
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length === 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
 
 const PlayerControls = ({playStatus, onPlay, onBack, onForward, onPause, className}) => (
 	<div className='now-playing-view--control'>
@@ -36,6 +47,17 @@ const TimerControl = ({currentTime, remainingTime, duration, onSetCurrentTime}) 
 export default class NowPlayingView extends React.Component {
 	state = {
 		showControl: false
+	}
+
+	componentDidUpdate(prevProps) {
+		let {onSetBgColor, onSetFontColor} = this.props;
+		if (this.props.song && (prevProps.song ? (this.props.song.albumImage !== prevProps.song.albumImage) : true)) {
+			getPixels(this.props.song.albumImage, (err, pixels) => {
+				let colors = getPalette(pixels.data);
+				onSetBgColor(rgbToHex(...colors[0]));
+				onSetFontColor(rgbToHex(...colors[1]));
+			});
+		}
 	}
 
 	render() {

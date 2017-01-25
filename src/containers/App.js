@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import AppView from '../components/AppView';
 import {progressQueue, setPlayStatus, setDuration, setCurrentTime, addPendingChange, removePendingChange} from '../redux/modules/player';
-import {getCurrentSong, getNextSong, getCurrentSongUrl, getNextSongUrl, getPlayStatus, getUsersList, getVolume, getPendingChanges, getCurrentTime} from '../selectors';
+import {getCurrentSong, getNextSong, getCurrentSongUrl, getNextSongUrl, getPlayStatus, getUsersList, getVolume, getBgColor, getFontColor, getPendingChanges, getCurrentTime} from '../selectors';
 
 function mapStateToProps(state) {
 	return {
@@ -13,7 +13,9 @@ function mapStateToProps(state) {
 		usersCount: getUsersList(state).length,
 		volume: getVolume(state),
 		pendingChanges: getPendingChanges(state),
-		currentTime: getCurrentTime(state)
+		currentTime: getCurrentTime(state),
+		bgColor: getBgColor(state),
+		fontColor: getFontColor(state)
 	};
 }
 

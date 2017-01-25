@@ -21,7 +21,7 @@ const AddUser = ({value, onChange, onAddUser, onKeyDown}) => (
 		onKeyDown={onKeyDown}
 		onChange={(e) => onChange(e.target.value)}
 		onAction={onAddUser}
-		actionText='+' />
+		iconName='plus' />
 );
 
 class UsersList extends React.Component {

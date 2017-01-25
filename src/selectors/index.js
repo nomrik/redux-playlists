@@ -16,6 +16,8 @@ export const getVolume = state => state.player.volume;
 export const getDuration = state => state.player.duration;
 export const getCurrentTime = state => state.player.currentTime;
 export const getPendingChanges = state => state.player.pendingChanges;
+export const getBgColor = state => state.colors.bgColor;
+export const getFontColor = state => state.colors.fontColor;
 
 export const getRemainingTime = createSelector(
 	[getDuration, getCurrentTime],

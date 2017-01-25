@@ -6,7 +6,7 @@
 	align-content: center;
 	justify-content: center;
 	align-items: center;
-	border: 1px solid white;
+	border: 1px solid;
 	margin-right: 20px;
 	background-size: cover;
 	border-radius: 5px;
@@ -40,11 +40,13 @@
 	width: 90%;
 	text-align: center;
 	border-radius: 5px;
+	color: white;
 }
 
 .now-playing-view--control {
 	display: flex;
 	align-items: center;
+	color: white;
 }
 
 .now-playing-view--control > div {
@@ -100,12 +102,16 @@ input[type=range]::-webkit-slider-runnable-track {
   border: 1px solid rgba(100,100,100,0.5);
 }
 input[type=range]::-webkit-slider-thumb {
+	transition: background 0.2s ease-in;
   box-shadow: 0px 0px 6.7px #000000, 0px 0px 0px #0d0d0d;
   border: 0px solid #000000;
   height: 25px;
   width: 25px;
   border-radius: 50px;
   background: #ffffff;
+	&:hover {
+		background: $blue;
+	}
   cursor: pointer;
   -webkit-appearance: none;
   margin-top: -8.55px;
@@ -120,12 +126,16 @@ input[type=range]::-moz-range-track {
   border: 1px solid rgba(100,100,100,0.5);
 }
 input[type=range]::-moz-range-thumb {
+	transition: background 0.2s ease-in;
   box-shadow: 0px 0px 6.7px #000000, 0px 0px 0px #0d0d0d;
   border: 0px solid #000000;
   height: 25px;
   width: 25px;
   border-radius: 50px;
   background: #ffffff;
+	&:hover {
+		background: $blue;
+	}
   cursor: pointer;
 }
 input[type=range]::-ms-track {

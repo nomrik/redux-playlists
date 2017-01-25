@@ -17,7 +17,32 @@ body {
 }
 
 .fa {
+	transition: color 0.2s ease-in;
 	cursor: pointer;
+}
+
+.fa-play {
+	&:hover {
+		color: $green;
+	}
+}
+
+.fa-pause {
+	&:hover {
+		color: $red;
+	}
+}
+
+.fa-plus, .fa-search, .fa-forward, .fa-backward {
+	&:hover {
+		color: $blue;
+	}
+}
+
+.fa-close {
+	&:hover {
+		color: $black;
+	}
 }
 
 .app-view {
@@ -49,5 +74,5 @@ body {
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: $light-gray;
-  border-right: 2px solid $background-gray;
+  border: 1px solid $background-gray;
 }

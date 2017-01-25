@@ -6,6 +6,7 @@ import activePlaylist from './modules/activePlaylist';
 import searchedSongs from './modules/searchedSongs';
 import savedSongs from './modules/savedSongs';
 import player from './modules/player';
+import colors from './modules/colors';
 
 const reducer = combineReducers({
   users,
@@ -14,7 +15,8 @@ const reducer = combineReducers({
 	activePlaylist,
 	searchedSongs,
 	savedSongs,
-	player
+	player,
+	colors
 });
 
 const configureStore = (initialState) => createStore(reducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
