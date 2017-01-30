@@ -18,6 +18,7 @@ export const getCurrentTime = state => state.player.currentTime;
 export const getPendingChanges = state => state.player.pendingChanges;
 export const getBgColor = state => state.colors.bgColor;
 export const getFontColor = state => state.colors.fontColor;
+export const getIsSearching = state => state.isSearching;
 
 export const getRemainingTime = createSelector(
 	[getDuration, getCurrentTime],

@@ -4,6 +4,7 @@ import activeUser from './modules/activeUser';
 import playlists from './modules/playlists';
 import activePlaylist from './modules/activePlaylist';
 import searchedSongs from './modules/searchedSongs';
+import isSearching from './modules/isSearching';
 import savedSongs from './modules/savedSongs';
 import player from './modules/player';
 import colors from './modules/colors';
@@ -14,6 +15,7 @@ const reducer = combineReducers({
 	playlists,
 	activePlaylist,
 	searchedSongs,
+	isSearching,
 	savedSongs,
 	player,
 	colors

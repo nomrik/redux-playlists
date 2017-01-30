@@ -44,7 +44,7 @@ class SongSearchView extends React.Component {
 	}
 
 	render() {
-		let {songs, activeUser, activePlaylist, onAddSongToPlaylist, onPlay, playStatus, onPause, currentSong} = this.props;
+		let {songs, activeUser, activePlaylist, isSearching, onAddSongToPlaylist, onPlay, playStatus, onPause, currentSong} = this.props;
 		return (
 			activeUser ?
 			<div className='song-search-view'>
@@ -55,8 +55,9 @@ class SongSearchView extends React.Component {
 					onChange={(e) => this.setState({searchTerm: e.target.value})}
 					onAction={() => this.searchSongs()}
 					iconName='search' />
-				<div className='song-search-view--search-resutls'>
-					{songs.map(song =>
+				{isSearching && <p>Searching...</p>}
+				{!isSearching && <div className='song-search-view--search-resutls'>
+					{isSearching !== null && (songs.length > 0 ? songs.map(song =>
 						<SongSearchResult
 							key={song.id}
 							onPlay={() => onPlay(songs, songs.indexOf(song))}
@@ -65,8 +66,9 @@ class SongSearchView extends React.Component {
 							onAdd={() => activePlaylist.songs.includes(song.id) ? null : onAddSongToPlaylist(activePlaylist.id, song)}
 							currentSong={currentSong}
 							playStatus={playStatus}
-							isActivePlaylist={!isEmpty(activePlaylist)}/>)}
-				</div>
+							isActivePlaylist={!isEmpty(activePlaylist)}/>) :
+						<p>Sorry! No songs found.</p>)}
+				</div>}
 			</div> : null
 		);
 	}
