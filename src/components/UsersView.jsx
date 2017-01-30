@@ -2,11 +2,20 @@ import React from 'react';
 import InputAction from './InputAction';
 import onClickOutside from 'react-onclickoutside';
 
-const ActiveUser = ({user, onClick}) => (
-	<div onClick={onClick} className='users-view--active-user'>
-		{user}
-	</div>
-);
+class ActiveUser extends React.Component {
+	getNode() {
+		return this.node;
+	}
+
+	render() {
+		let {user, onClick} = this.props;
+		return (
+			<div ref={node => this.node = node} onClick={onClick} className='users-view--active-user'>
+				{user}
+			</div>
+		);
+	}
+}
 
 const OtherUsers = ({users, onSwitchUser}) => (
 	<div className='users-view--users-list'>
@@ -26,8 +35,9 @@ const AddUser = ({value, onChange, onAddUser, onKeyDown}) => (
 
 class UsersList extends React.Component {
 
-	handleClickOutside() {
-		this.props.onCloseList();
+	handleClickOutside(e) {
+		if (e.target !== this.props.activeUserComponent.getNode())
+			this.props.onCloseList();
 	}
 
 	render() {
@@ -85,10 +95,11 @@ class UsersView extends React.Component {
 		let otherUsers = users.filter(user => user !== activeUser);
 		return (
 			<div className='users-view'>
-				<ActiveUser user={activeUser.charAt(0).toUpperCase()} onClick={() => this.setState({showUserList: !showUserList})}/>
+				<ActiveUser ref={activeUserComponent => this.activeUserComponent = activeUserComponent} user={activeUser.charAt(0).toUpperCase()} onClick={() => this.setState({showUserList: !showUserList})}/>
 				{showUserList &&
 					<UsersList
 						activeUser={activeUser}
+						activeUserComponent={this.activeUserComponent}
 						otherUsers={otherUsers}
 						onSwitchUser={onSwitchUser}
 						inputValue={newUserName}
