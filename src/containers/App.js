@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import AppView from '../components/AppView';
 import {progressQueue, setPlayStatus, setDuration, setCurrentTime, addPendingChange, removePendingChange} from '../redux/modules/player';
-import {getCurrentSong, getNextSong, getCurrentSongUrl, getNextSongUrl, getPlayStatus, getUsersList, getVolume, getBgColor, getFontColor, getPendingChanges, getCurrentTime} from '../selectors';
+import {getCurrentSong, getNextSong, getCurrentSongUrl, getNextSongUrl, getPlayStatus, getUsersList, getVolume, getBgColor, getFontColor, getPendingChanges, getCurrentTime, getToken} from '../selectors';
+import {setToken} from '../redux/modules/token';
 
 function mapStateToProps(state) {
 	return {
@@ -15,7 +16,8 @@ function mapStateToProps(state) {
 		pendingChanges: getPendingChanges(state),
 		currentTime: getCurrentTime(state),
 		bgColor: getBgColor(state),
-		fontColor: getFontColor(state)
+		fontColor: getFontColor(state),
+		token: getToken(state)
 	};
 }
 
@@ -29,7 +31,8 @@ function mapDispatchToProps(dispatch) {
 		onSetDuration: duration => dispatch(setDuration(duration)),
 		onSetCurrentTime: currentTime => dispatch(setCurrentTime(currentTime)),
 		onAddPendingChange: (type) => dispatch(addPendingChange({type})),
-		onRemovePendingChange: type => dispatch(removePendingChange({type}))
+		onRemovePendingChange: type => dispatch(removePendingChange({type})),
+		onSetToken: token => dispatch(setToken(token))
 	}
 }
 

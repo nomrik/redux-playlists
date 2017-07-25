@@ -25,7 +25,11 @@ function mapDispatchToProps(dispatch) {
 		},
 		onPlay: (songs, startIndex) => {
 			dispatch(resetPlayer());
-			songs.forEach(song => dispatch(addToQueue(song.id)));
+			songs.forEach(song => {
+				if (song.previewUrl) {
+					dispatch(addToQueue(song.id))
+				}
+			});
 			times(startIndex + 1, () => dispatch(progressQueue()));
 			dispatch(setPlayStatus('play'));
 			dispatch(addPendingChange({type: changesTypes.PLAY_STATUS}));

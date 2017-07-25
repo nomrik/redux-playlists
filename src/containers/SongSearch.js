@@ -3,10 +3,11 @@ import {loadSongs} from '../redux/modules/searchedSongs';
 import {addSongToPlaylist} from '../redux/modules/playlists';
 import {setIsSearching} from '../redux/modules/isSearching';
 import {setPlayStatus, resetPlayer, addToQueue, progressQueue, addPendingChange, changesTypes} from '../redux/modules/player';
-import Spotify from '../utils/SpotifyHelper';
+import SpotifyHelper from '../utils/SpotifyHelper';
 import times from 'lodash/times';
 import {getSearchedSongsList, getActivePlaylist, getCurrentSongObject, getPlayStatus, getIsSearching} from '../selectors'
 import SongSearchView from '../components/SongSearchView';
+
 
 function mapStateToProps(state) {
 	return {
@@ -19,7 +20,8 @@ function mapStateToProps(state) {
 	};
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, {token}) {
+	let Spotify = new SpotifyHelper({token});
 	return {
 		onSearchSongs: (searchTerm, currentSong) => {
 			dispatch(setIsSearching(true));
@@ -33,7 +35,11 @@ function mapDispatchToProps(dispatch) {
 		onAddSongToPlaylist: (playlistId, song) => dispatch(addSongToPlaylist(playlistId, song)),
 		onPlay: (songs, startIndex) => {
 			dispatch(resetPlayer());
-			songs.forEach(song => dispatch(addToQueue(song.id)));
+			songs.forEach(song => {
+				if (song.previewUrl) {
+					dispatch(addToQueue(song.id))
+				}
+			});
 			times(startIndex + 1, () => dispatch(progressQueue()));
 			dispatch(setPlayStatus('play'));
 			dispatch(addPendingChange({type: changesTypes.PLAY_STATUS}));
