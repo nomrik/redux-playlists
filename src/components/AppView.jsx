@@ -7,6 +7,12 @@ import SignUp from '../containers/SignUp';
 import NowPlaying from '../containers/NowPlaying';
 import {changesTypes} from '../redux/modules/player';
 
+function getAccessTokenFromUrlHash(hash){
+	const tokenParamName = 'access_token=';
+	const token = hash.substring(hash.indexOf(tokenParamName) + tokenParamName.length).replace(/&.*/, '');
+	return token;
+}
+
 class AppView extends React.Component {
 
 	constructor(props) {
@@ -17,8 +23,9 @@ class AppView extends React.Component {
 	componentDidMount() {
 		this.audio = new Audio();
 		this.audio.addEventListener('ended', this.playNext);
-		this.audio.addEventListener('durationchange', () => this.props.onSetDuration(Math.round(this.audio.duration)))
-		this.audio.addEventListener('timeupdate', () => this.props.onSetCurrentTime(Math.round(this.audio.currentTime)))
+		this.audio.addEventListener('durationchange', () => this.props.onSetDuration(Math.round(this.audio.duration)));
+		this.audio.addEventListener('timeupdate', () => this.props.onSetCurrentTime(Math.round(this.audio.currentTime)));
+		this.props.onSetToken(getAccessTokenFromUrlHash(this.props.location.hash));
 	}
 
 	playNext() {
@@ -68,7 +75,7 @@ class AppView extends React.Component {
 	}
 
 	render() {
-		let {usersCount, bgColor, fontColor} = this.props;
+		let {usersCount, bgColor, fontColor, token} = this.props;
 		return ( usersCount > 0 ?
 			<div className='app-view' style={{backgroundColor: bgColor, color: fontColor, borderColor: fontColor}}>
 				<div className='app-view--top'>
@@ -78,7 +85,7 @@ class AppView extends React.Component {
 				</div>
 				<div className='app-view--bottom'>
 					<NowPlaying />
-					<SongSearch />
+					<SongSearch token={token}/>
 				</div>
 			</div> : <SignUp />
 		);

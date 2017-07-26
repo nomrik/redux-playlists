@@ -45,6 +45,7 @@ class SongSearchView extends React.Component {
 
 	render() {
 		let {songs, activeUser, activePlaylist, isSearching, onAddSongToPlaylist, onPlay, playStatus, onPause, currentSong} = this.props;
+		let songsWithPreview = songs.filter(song => song.previewUrl);
 		return (
 			activeUser ?
 			<div className='song-search-view'>
@@ -60,7 +61,7 @@ class SongSearchView extends React.Component {
 					{isSearching !== null && (songs.length > 0 ? songs.map(song =>
 						<SongSearchResult
 							key={song.id}
-							onPlay={() => onPlay(songs, songs.indexOf(song))}
+							onPlay={() => onPlay(songs, songsWithPreview.indexOf(song))}
 							onPause={onPause}
 							song={song}
 							onAdd={() => activePlaylist.songs.includes(song.id) ? null : onAddSongToPlaylist(activePlaylist.id, song)}

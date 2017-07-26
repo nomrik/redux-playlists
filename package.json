@@ -53,6 +53,7 @@
     "get-image-colors": "^1.8.0",
     "get-pixels": "^3.3.0",
     "get-rgba-palette": "^2.0.1",
+    "gh-pages": "^1.0.0",
     "keymirror": "^0.1.1",
     "lodash": "^4.17.4",
     "node-vibrant": "^2.1.2",
@@ -62,6 +63,7 @@
     "react-fontawesome": "^1.5.0",
     "react-onclickoutside": "^5.8.3",
     "react-redux": "^5.0.1",
+    "react-router-dom": "^4.1.2",
     "redux": "^3.6.0",
     "reselect": "^2.5.4",
     "uuid": "^3.0.1"
@@ -70,10 +72,10 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-		"predeploy": "npm run build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-	"homepage": "https://nomrik.github.io/redux-playlists",
+  "homepage": "https://nomrik.github.io/redux-playlists",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"

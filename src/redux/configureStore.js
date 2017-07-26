@@ -8,6 +8,7 @@ import isSearching from './modules/isSearching';
 import savedSongs from './modules/savedSongs';
 import player from './modules/player';
 import colors from './modules/colors';
+import token from './modules/token';
 
 const reducer = combineReducers({
   users,
@@ -18,7 +19,8 @@ const reducer = combineReducers({
 	isSearching,
 	savedSongs,
 	player,
-	colors
+	colors,
+	token
 });
 
 const configureStore = (initialState) => createStore(reducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

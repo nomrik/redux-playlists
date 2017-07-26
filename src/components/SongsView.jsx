@@ -13,20 +13,22 @@ const PlaylistSong = ({song, playStatus, onPlay, onPause, currentSong, onRemoveS
 	</Song>
 );
 
-const SongsView = ({playlist, songs, playStatus, onPlay, onPlayAll, onPause, currentSong, onRemoveSong}) => (
-	playlist.id ?
-	<div style={{margin: 20}}>
-		<h2 style={{marginTop: 0}}>{playlist.name}</h2>
-		{songs.map(song =>
-			<PlaylistSong
-				key={song.id}
-				song={song}
-				playStatus={playStatus}
-				onPlay={() => onPlay(songs, songs.indexOf(song))}
-				onPause={onPause}
-				currentSong={currentSong}
-				onRemoveSong={() => onRemoveSong(playlist.id, song.id, song.id === currentSong)} />)}
-	</div> : null
-);
+const SongsView = ({playlist, songs, playStatus, onPlay, onPlayAll, onPause, currentSong, onRemoveSong}) => {
+	let songsWithPreview = songs.filter(song => song.previewUrl);
+	return ( playlist.id ?
+		<div className='songs-view'>
+			<h2 className='songs-view--title'>{playlist.name}</h2>
+			{songs.map(song =>
+				<PlaylistSong
+					key={song.id}
+					song={song}
+					playStatus={playStatus}
+					onPlay={() => onPlay(songs, songsWithPreview.indexOf(song))}
+					onPause={onPause}
+					currentSong={currentSong}
+					onRemoveSong={() => onRemoveSong(playlist.id, song.id, song.id === currentSong)} />)}
+ 		</div> : null
+	)
+};
 
 export default SongsView;

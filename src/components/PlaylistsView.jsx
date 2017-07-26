@@ -53,18 +53,12 @@ class Playlist extends React.Component {
 
 	render() {
 		let {playlist, onSwitchPlaylist, onDeletePlaylist, isActive} = this.props;
-		const inputStyle = {
-			marginRight: 10,
-    	border: 'none',
-    	padding: 4,
-    	borderRadius: 5,
-		};
 		return (
-			<div style={{marginTop: 20}}>
+			<div className='playlist-view'>
 				{!this.state.isInEditMode ?
-					<span onClick={onSwitchPlaylist} onDoubleClick={() => this.setState({isInEditMode: true})} style={{cursor: 'pointer', fontWeight: isActive ? 'bold' : 'normal', marginRight: 20}}>{playlist.name}</span>
+					<span className='playlist-view--playlist-name' onClick={onSwitchPlaylist} onDoubleClick={() => this.setState({isInEditMode: true})} style={{fontWeight: isActive ? 'bold' : 'normal'}}>{playlist.name}</span>
 					:
-					<input ref={input => this.input = input} style={inputStyle} value={this.state.newPlaylistName} onChange={e =>  this.setState({newPlaylistName: e.target.value})} onKeyDown={e => this.handleKeyDown(e)} />
+					<input className='playlist-view--playlist-edit' ref={input => this.input = input} value={this.state.newPlaylistName} onChange={e =>  this.setState({newPlaylistName: e.target.value})} onKeyDown={e => this.handleKeyDown(e)} />
 				}
 				<FontAwesome name='close' onClick={onDeletePlaylist} />
 			</div>
@@ -85,8 +79,8 @@ class PlaylistsView extends React.Component {
 		let {playlists, activeUser, activePlaylist, currentSong, searchedSongs, onDeletePlaylist, onSwitchPlaylist, onRenamePlaylist} = this.props;
 		return (
 			activeUser ?
-			<div style={{margin: 20, width: 230}}>
-				<h2 style={{marginRight: 10, display: 'inline'}}>Playlists</h2>
+			<div className='playlists-view'>
+				<h2 className='playlists-view--title'>Playlists</h2>
 				<FontAwesome name='plus' onClick={() => this.createPlaylist()}	/>
 				{playlists.map(playlist =>
 					<Playlist
