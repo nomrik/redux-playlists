@@ -51,11 +51,4 @@ class SpotifyHelper {
 	}
 }
 
-// const SpotifyHelper = {
-// 	search(query) {
-// 		let url = `${baseUrl}/search/?q=${query}&type=track`;
-// 		return axios.get(url).then(response => normalizeResponse(response));
-// 	}
-// };
-
 export default SpotifyHelper;
